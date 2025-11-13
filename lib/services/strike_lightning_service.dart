@@ -6,7 +6,7 @@ import 'package:whitenoise/src/rust/api/lightning.dart';
 /// Service for managing Strike Lightning payments
 class StrikeLightningService {
   StrikeLightningService({FlutterSecureStorage? secureStorage})
-      : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   final FlutterSecureStorage _secureStorage;
   final _logger = Logger('StrikeLightningService');
@@ -60,9 +60,6 @@ class StrikeLightningService {
     return StrikeLightningConfig(
       apiKey: apiKey,
       baseUrl: 'https://api.strike.me/v1',
-      socks5Proxy: null,
-      acceptInvalidCerts: false,
-      httpTimeout: 60,
     );
   }
 
