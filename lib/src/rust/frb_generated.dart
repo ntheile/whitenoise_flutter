@@ -12,6 +12,7 @@ import 'api.dart';
 import 'api/accounts.dart';
 import 'api/error.dart';
 import 'api/groups.dart';
+import 'api/lightning.dart';
 import 'api/media_files.dart';
 import 'api/messages.dart';
 import 'api/metadata.dart';
@@ -81,7 +82,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => -481785978;
+  int get rustContentHash => 1279661517;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -307,6 +308,30 @@ abstract class RustLibApi extends BaseApi {
     required String message,
     required int kind,
     List<Tag>? tags,
+  });
+
+  Future<LightningTransaction> crateApiLightningStrikeCreateInvoice({
+    required StrikeLightningConfig config,
+    required CreateInvoiceParams params,
+  });
+
+  Future<LightningNodeInfo> crateApiLightningStrikeGetInfo({
+    required StrikeLightningConfig config,
+  });
+
+  Future<List<LightningTransaction>> crateApiLightningStrikeListTransactions({
+    required StrikeLightningConfig config,
+    required ListTransactionsParams params,
+  });
+
+  Future<LightningTransaction> crateApiLightningStrikeLookupInvoice({
+    required StrikeLightningConfig config,
+    required String paymentHash,
+  });
+
+  Future<PayInvoiceResponse> crateApiLightningStrikePayInvoice({
+    required StrikeLightningConfig config,
+    required PayInvoiceParams params,
   });
 
   Future<String> crateApiUtilsStringFromRelayUrl({required RelayUrl relayUrl});
@@ -2304,6 +2329,179 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<LightningTransaction> crateApiLightningStrikeCreateInvoice({
+    required StrikeLightningConfig config,
+    required CreateInvoiceParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_strike_lightning_config(config, serializer);
+          sse_encode_box_autoadd_create_invoice_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 57,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningStrikeCreateInvoiceConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningStrikeCreateInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'strike_create_invoice',
+        argNames: ['config', 'params'],
+      );
+
+  @override
+  Future<LightningNodeInfo> crateApiLightningStrikeGetInfo({
+    required StrikeLightningConfig config,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_strike_lightning_config(config, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 58,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_node_info,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningStrikeGetInfoConstMeta,
+        argValues: [config],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningStrikeGetInfoConstMeta =>
+      const TaskConstMeta(
+        debugName: 'strike_get_info',
+        argNames: ['config'],
+      );
+
+  @override
+  Future<List<LightningTransaction>> crateApiLightningStrikeListTransactions({
+    required StrikeLightningConfig config,
+    required ListTransactionsParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_strike_lightning_config(config, serializer);
+          sse_encode_box_autoadd_list_transactions_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 59,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningStrikeListTransactionsConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningStrikeListTransactionsConstMeta =>
+      const TaskConstMeta(
+        debugName: 'strike_list_transactions',
+        argNames: ['config', 'params'],
+      );
+
+  @override
+  Future<LightningTransaction> crateApiLightningStrikeLookupInvoice({
+    required StrikeLightningConfig config,
+    required String paymentHash,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_strike_lightning_config(config, serializer);
+          sse_encode_String(paymentHash, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 60,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningStrikeLookupInvoiceConstMeta,
+        argValues: [config, paymentHash],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningStrikeLookupInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'strike_lookup_invoice',
+        argNames: ['config', 'paymentHash'],
+      );
+
+  @override
+  Future<PayInvoiceResponse> crateApiLightningStrikePayInvoice({
+    required StrikeLightningConfig config,
+    required PayInvoiceParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_strike_lightning_config(config, serializer);
+          sse_encode_box_autoadd_pay_invoice_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 61,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_pay_invoice_response,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningStrikePayInvoiceConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningStrikePayInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'strike_pay_invoice',
+        argNames: ['config', 'params'],
+      );
+
+  @override
   Future<String> crateApiUtilsStringFromRelayUrl({required RelayUrl relayUrl}) {
     return handler.executeNormal(
       NormalTask(
@@ -2316,7 +2514,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 57,
+            funcId: 62,
             port: port_,
           );
         },
@@ -2347,7 +2545,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 58,
+            funcId: 63,
             port: port_,
           );
         },
@@ -2382,7 +2580,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 59,
+            funcId: 64,
             port: port_,
           );
         },
@@ -2417,7 +2615,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 60,
+            funcId: 65,
             port: port_,
           );
         },
@@ -2451,7 +2649,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 61,
+            funcId: 66,
             port: port_,
           );
         },
@@ -2489,7 +2687,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 62,
+            funcId: 67,
             port: port_,
           );
         },
@@ -2526,7 +2724,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 63,
+            funcId: 68,
             port: port_,
           );
         },
@@ -2565,7 +2763,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 64,
+            funcId: 69,
             port: port_,
           );
         },
@@ -2600,7 +2798,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 65,
+            funcId: 70,
             port: port_,
           );
         },
@@ -2635,7 +2833,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 66,
+            funcId: 71,
             port: port_,
           );
         },
@@ -2674,7 +2872,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 67,
+            funcId: 72,
             port: port_,
           );
         },
@@ -2935,6 +3133,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           message: dco_decode_String(raw[1]),
         );
       case 7:
+        return ApiError_LightningError(
+          dco_decode_String(raw[1]),
+        );
+      case 8:
         return ApiError_Other(
           message: dco_decode_String(raw[1]),
         );
@@ -2959,6 +3161,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ApiError dco_decode_box_autoadd_api_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_api_error(raw);
+  }
+
+  @protected
+  bool dco_decode_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
+  CreateInvoiceParams dco_decode_box_autoadd_create_invoice_params(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_create_invoice_params(raw);
+  }
+
+  @protected
+  double dco_decode_box_autoadd_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
   }
 
   @protected
@@ -2994,6 +3216,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PlatformInt64 dco_decode_box_autoadd_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_i_64(raw);
+  }
+
+  @protected
+  ListTransactionsParams dco_decode_box_autoadd_list_transactions_params(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_list_transactions_params(raw);
+  }
+
+  @protected
+  PayInvoiceParams dco_decode_box_autoadd_pay_invoice_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pay_invoice_params(raw);
+  }
+
+  @protected
+  StrikeLightningConfig dco_decode_box_autoadd_strike_lightning_config(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_strike_lightning_config(raw);
+  }
+
+  @protected
   WhitenoiseConfig dco_decode_box_autoadd_whitenoise_config(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_whitenoise_config(raw);
@@ -3022,6 +3272,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  CreateInvoiceParams dco_decode_create_invoice_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return CreateInvoiceParams(
+      amountMsats: dco_decode_opt_box_autoadd_i_64(arr[0]),
+      description: dco_decode_opt_String(arr[1]),
+      expiry: dco_decode_opt_box_autoadd_i_64(arr[2]),
+    );
+  }
+
+  @protected
   EmojiReaction dco_decode_emoji_reaction(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -3032,6 +3295,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       count: dco_decode_u_64(arr[1]),
       users: dco_decode_list_String(arr[2]),
     );
+  }
+
+  @protected
+  double dco_decode_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
   }
 
   @protected
@@ -3160,6 +3429,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  LightningNodeInfo dco_decode_lightning_node_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return LightningNodeInfo(
+      alias: dco_decode_String(arr[0]),
+      publicKey: dco_decode_String(arr[1]),
+      sendBalanceMsats: dco_decode_i_64(arr[2]),
+      receiveBalanceMsats: dco_decode_i_64(arr[3]),
+    );
+  }
+
+  @protected
+  LightningTransaction dco_decode_lightning_transaction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 9)
+      throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
+    return LightningTransaction(
+      type: dco_decode_String(arr[0]),
+      invoice: dco_decode_String(arr[1]),
+      paymentHash: dco_decode_String(arr[2]),
+      amountMsats: dco_decode_i_64(arr[3]),
+      description: dco_decode_String(arr[4]),
+      createdAt: dco_decode_i_64(arr[5]),
+      expiresAt: dco_decode_i_64(arr[6]),
+      settledAt: dco_decode_i_64(arr[7]),
+      feesPaid: dco_decode_i_64(arr[8]),
+    );
+  }
+
+  @protected
   List<Tag>
   dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTag(
     dynamic raw,
@@ -3215,6 +3517,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<LightningTransaction> dco_decode_list_lightning_transaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_lightning_transaction)
+        .toList();
+  }
+
+  @protected
   List<MediaFile> dco_decode_list_media_file(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_media_file).toList();
@@ -3242,6 +3554,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   List<SerializableToken> dco_decode_list_serializable_token(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_serializable_token).toList();
+  }
+
+  @protected
+  ListTransactionsParams dco_decode_list_transactions_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return ListTransactionsParams(
+      from: dco_decode_i_64(arr[0]),
+      limit: dco_decode_i_64(arr[1]),
+      search: dco_decode_opt_String(arr[2]),
+    );
   }
 
   @protected
@@ -3313,6 +3638,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  bool? dco_decode_opt_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_bool(raw);
+  }
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_f_64(raw);
+  }
+
+  @protected
   FileMetadata? dco_decode_opt_box_autoadd_file_metadata(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_file_metadata(raw);
@@ -3322,6 +3659,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   FlutterEvent? dco_decode_opt_box_autoadd_flutter_event(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_flutter_event(raw);
+  }
+
+  @protected
+  PlatformInt64? dco_decode_opt_box_autoadd_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_i_64(raw);
   }
 
   @protected
@@ -3353,6 +3696,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   U8Array32? dco_decode_opt_u_8_array_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_u_8_array_32(raw);
+  }
+
+  @protected
+  PayInvoiceParams dco_decode_pay_invoice_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return PayInvoiceParams(
+      invoice: dco_decode_String(arr[0]),
+      feeLimitPercentage: dco_decode_opt_box_autoadd_f_64(arr[1]),
+    );
+  }
+
+  @protected
+  PayInvoiceResponse dco_decode_pay_invoice_response(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return PayInvoiceResponse(
+      paymentHash: dco_decode_String(arr[0]),
+      preimage: dco_decode_String(arr[1]),
+      feeMsats: dco_decode_i_64(arr[2]),
+    );
   }
 
   @protected
@@ -3402,6 +3770,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return SerializableToken(
       tokenType: dco_decode_String(arr[0]),
       content: dco_decode_opt_String(arr[1]),
+    );
+  }
+
+  @protected
+  StrikeLightningConfig dco_decode_strike_lightning_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return StrikeLightningConfig(
+      apiKey: dco_decode_String(arr[0]),
+      baseUrl: dco_decode_opt_String(arr[1]),
+      socks5Proxy: dco_decode_opt_String(arr[2]),
+      acceptInvalidCerts: dco_decode_opt_box_autoadd_bool(arr[3]),
+      httpTimeout: dco_decode_opt_box_autoadd_i_64(arr[4]),
     );
   }
 
@@ -3768,6 +4151,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final var_message = sse_decode_String(deserializer);
         return ApiError_NostrHex(message: var_message);
       case 7:
+        final var_field0 = sse_decode_String(deserializer);
+        return ApiError_LightningError(var_field0);
+      case 8:
         final var_message = sse_decode_String(deserializer);
         return ApiError_Other(message: var_message);
       default:
@@ -3791,6 +4177,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ApiError sse_decode_box_autoadd_api_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_api_error(deserializer));
+  }
+
+  @protected
+  bool sse_decode_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_bool(deserializer));
+  }
+
+  @protected
+  CreateInvoiceParams sse_decode_box_autoadd_create_invoice_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_create_invoice_params(deserializer));
+  }
+
+  @protected
+  double sse_decode_box_autoadd_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_f_64(deserializer));
   }
 
   @protected
@@ -3829,6 +4235,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   Group sse_decode_box_autoadd_group(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_group(deserializer));
+  }
+
+  @protected
+  PlatformInt64 sse_decode_box_autoadd_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_i_64(deserializer));
+  }
+
+  @protected
+  ListTransactionsParams sse_decode_box_autoadd_list_transactions_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_list_transactions_params(deserializer));
+  }
+
+  @protected
+  PayInvoiceParams sse_decode_box_autoadd_pay_invoice_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pay_invoice_params(deserializer));
+  }
+
+  @protected
+  StrikeLightningConfig sse_decode_box_autoadd_strike_lightning_config(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_strike_lightning_config(deserializer));
   }
 
   @protected
@@ -3871,12 +4307,33 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  CreateInvoiceParams sse_decode_create_invoice_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_amountMsats = sse_decode_opt_box_autoadd_i_64(deserializer);
+    final var_description = sse_decode_opt_String(deserializer);
+    final var_expiry = sse_decode_opt_box_autoadd_i_64(deserializer);
+    return CreateInvoiceParams(
+      amountMsats: var_amountMsats,
+      description: var_description,
+      expiry: var_expiry,
+    );
+  }
+
+  @protected
   EmojiReaction sse_decode_emoji_reaction(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     final var_emoji = sse_decode_String(deserializer);
     final var_count = sse_decode_u_64(deserializer);
     final var_users = sse_decode_list_String(deserializer);
     return EmojiReaction(emoji: var_emoji, count: var_count, users: var_users);
+  }
+
+  @protected
+  double sse_decode_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat64();
   }
 
   @protected
@@ -4034,6 +4491,50 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  LightningNodeInfo sse_decode_lightning_node_info(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_alias = sse_decode_String(deserializer);
+    final var_publicKey = sse_decode_String(deserializer);
+    final var_sendBalanceMsats = sse_decode_i_64(deserializer);
+    final var_receiveBalanceMsats = sse_decode_i_64(deserializer);
+    return LightningNodeInfo(
+      alias: var_alias,
+      publicKey: var_publicKey,
+      sendBalanceMsats: var_sendBalanceMsats,
+      receiveBalanceMsats: var_receiveBalanceMsats,
+    );
+  }
+
+  @protected
+  LightningTransaction sse_decode_lightning_transaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_type = sse_decode_String(deserializer);
+    final var_invoice = sse_decode_String(deserializer);
+    final var_paymentHash = sse_decode_String(deserializer);
+    final var_amountMsats = sse_decode_i_64(deserializer);
+    final var_description = sse_decode_String(deserializer);
+    final var_createdAt = sse_decode_i_64(deserializer);
+    final var_expiresAt = sse_decode_i_64(deserializer);
+    final var_settledAt = sse_decode_i_64(deserializer);
+    final var_feesPaid = sse_decode_i_64(deserializer);
+    return LightningTransaction(
+      type: var_type,
+      invoice: var_invoice,
+      paymentHash: var_paymentHash,
+      amountMsats: var_amountMsats,
+      description: var_description,
+      createdAt: var_createdAt,
+      expiresAt: var_expiresAt,
+      settledAt: var_settledAt,
+      feesPaid: var_feesPaid,
+    );
+  }
+
+  @protected
   List<Tag>
   sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTag(
     SseDeserializer deserializer,
@@ -4143,6 +4644,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<LightningTransaction> sse_decode_list_lightning_transaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    final len_ = sse_decode_i_32(deserializer);
+    final ans_ = <LightningTransaction>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_lightning_transaction(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<MediaFile> sse_decode_list_media_file(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4199,6 +4714,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       ans_.add(sse_decode_serializable_token(deserializer));
     }
     return ans_;
+  }
+
+  @protected
+  ListTransactionsParams sse_decode_list_transactions_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_from = sse_decode_i_64(deserializer);
+    final var_limit = sse_decode_i_64(deserializer);
+    final var_search = sse_decode_opt_String(deserializer);
+    return ListTransactionsParams(
+      from: var_from,
+      limit: var_limit,
+      search: var_search,
+    );
   }
 
   @protected
@@ -4318,6 +4848,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  bool? sse_decode_opt_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_bool(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_f_64(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   FileMetadata? sse_decode_opt_box_autoadd_file_metadata(
     SseDeserializer deserializer,
   ) {
@@ -4338,6 +4890,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_flutter_event(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PlatformInt64? sse_decode_opt_box_autoadd_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_i_64(deserializer));
     } else {
       return null;
     }
@@ -4393,6 +4956,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PayInvoiceParams sse_decode_pay_invoice_params(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_invoice = sse_decode_String(deserializer);
+    final var_feeLimitPercentage = sse_decode_opt_box_autoadd_f_64(
+      deserializer,
+    );
+    return PayInvoiceParams(
+      invoice: var_invoice,
+      feeLimitPercentage: var_feeLimitPercentage,
+    );
+  }
+
+  @protected
+  PayInvoiceResponse sse_decode_pay_invoice_response(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_paymentHash = sse_decode_String(deserializer);
+    final var_preimage = sse_decode_String(deserializer);
+    final var_feeMsats = sse_decode_i_64(deserializer);
+    return PayInvoiceResponse(
+      paymentHash: var_paymentHash,
+      preimage: var_preimage,
+      feeMsats: var_feeMsats,
+    );
+  }
+
+  @protected
   ReactionSummary sse_decode_reaction_summary(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     final var_byEmoji = sse_decode_list_emoji_reaction(deserializer);
@@ -4434,6 +5025,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     final var_tokenType = sse_decode_String(deserializer);
     final var_content = sse_decode_opt_String(deserializer);
     return SerializableToken(tokenType: var_tokenType, content: var_content);
+  }
+
+  @protected
+  StrikeLightningConfig sse_decode_strike_lightning_config(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_apiKey = sse_decode_String(deserializer);
+    final var_baseUrl = sse_decode_opt_String(deserializer);
+    final var_socks5Proxy = sse_decode_opt_String(deserializer);
+    final var_acceptInvalidCerts = sse_decode_opt_box_autoadd_bool(
+      deserializer,
+    );
+    final var_httpTimeout = sse_decode_opt_box_autoadd_i_64(deserializer);
+    return StrikeLightningConfig(
+      apiKey: var_apiKey,
+      baseUrl: var_baseUrl,
+      socks5Proxy: var_socks5Proxy,
+      acceptInvalidCerts: var_acceptInvalidCerts,
+      httpTimeout: var_httpTimeout,
+    );
   }
 
   @protected
@@ -4806,8 +5418,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case ApiError_NostrHex(message: final message):
         sse_encode_i_32(6, serializer);
         sse_encode_String(message, serializer);
-      case ApiError_Other(message: final message):
+      case ApiError_LightningError(field0: final field0):
         sse_encode_i_32(7, serializer);
+        sse_encode_String(field0, serializer);
+      case ApiError_Other(message: final message):
+        sse_encode_i_32(8, serializer);
         sse_encode_String(message, serializer);
     }
   }
@@ -4834,6 +5449,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_api_error(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_bool(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_create_invoice_params(
+    CreateInvoiceParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_create_invoice_params(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_f_64(self, serializer);
   }
 
   @protected
@@ -4879,6 +5515,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_i_64(
+    PlatformInt64 self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_64(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_list_transactions_params(
+    ListTransactionsParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_transactions_params(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_pay_invoice_params(
+    PayInvoiceParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pay_invoice_params(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_strike_lightning_config(
+    StrikeLightningConfig self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_strike_lightning_config(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_whitenoise_config(
     WhitenoiseConfig self,
     SseSerializer serializer,
@@ -4905,11 +5577,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_create_invoice_params(
+    CreateInvoiceParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_i_64(self.amountMsats, serializer);
+    sse_encode_opt_String(self.description, serializer);
+    sse_encode_opt_box_autoadd_i_64(self.expiry, serializer);
+  }
+
+  @protected
   void sse_encode_emoji_reaction(EmojiReaction self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.emoji, serializer);
     sse_encode_u_64(self.count, serializer);
     sse_encode_list_String(self.users, serializer);
+  }
+
+  @protected
+  void sse_encode_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat64(self);
   }
 
   @protected
@@ -5017,6 +5706,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_lightning_node_info(
+    LightningNodeInfo self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.alias, serializer);
+    sse_encode_String(self.publicKey, serializer);
+    sse_encode_i_64(self.sendBalanceMsats, serializer);
+    sse_encode_i_64(self.receiveBalanceMsats, serializer);
+  }
+
+  @protected
+  void sse_encode_lightning_transaction(
+    LightningTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.type, serializer);
+    sse_encode_String(self.invoice, serializer);
+    sse_encode_String(self.paymentHash, serializer);
+    sse_encode_i_64(self.amountMsats, serializer);
+    sse_encode_String(self.description, serializer);
+    sse_encode_i_64(self.createdAt, serializer);
+    sse_encode_i_64(self.expiresAt, serializer);
+    sse_encode_i_64(self.settledAt, serializer);
+    sse_encode_i_64(self.feesPaid, serializer);
+  }
+
+  @protected
   void
   sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTag(
     List<Tag> self,
@@ -5108,6 +5826,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_lightning_transaction(
+    List<LightningTransaction> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_lightning_transaction(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_media_file(
     List<MediaFile> self,
     SseSerializer serializer,
@@ -5160,6 +5890,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     for (final item in self) {
       sse_encode_serializable_token(item, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_list_transactions_params(
+    ListTransactionsParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_64(self.from, serializer);
+    sse_encode_i_64(self.limit, serializer);
+    sse_encode_opt_String(self.search, serializer);
   }
 
   @protected
@@ -5247,6 +5988,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_bool(bool? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_bool(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_64(double? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_f_64(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_box_autoadd_file_metadata(
     FileMetadata? self,
     SseSerializer serializer,
@@ -5269,6 +6030,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_flutter_event(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_i_64(
+    PlatformInt64? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_i_64(self, serializer);
     }
   }
 
@@ -5323,6 +6097,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_pay_invoice_params(
+    PayInvoiceParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.invoice, serializer);
+    sse_encode_opt_box_autoadd_f_64(self.feeLimitPercentage, serializer);
+  }
+
+  @protected
+  void sse_encode_pay_invoice_response(
+    PayInvoiceResponse self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.paymentHash, serializer);
+    sse_encode_String(self.preimage, serializer);
+    sse_encode_i_64(self.feeMsats, serializer);
+  }
+
+  @protected
   void sse_encode_reaction_summary(
     ReactionSummary self,
     SseSerializer serializer,
@@ -5358,6 +6153,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.tokenType, serializer);
     sse_encode_opt_String(self.content, serializer);
+  }
+
+  @protected
+  void sse_encode_strike_lightning_config(
+    StrikeLightningConfig self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.apiKey, serializer);
+    sse_encode_opt_String(self.baseUrl, serializer);
+    sse_encode_opt_String(self.socks5Proxy, serializer);
+    sse_encode_opt_box_autoadd_bool(self.acceptInvalidCerts, serializer);
+    sse_encode_opt_box_autoadd_i_64(self.httpTimeout, serializer);
   }
 
   @protected

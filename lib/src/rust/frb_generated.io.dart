@@ -13,6 +13,7 @@ import 'api.dart';
 import 'api/accounts.dart';
 import 'api/error.dart';
 import 'api/groups.dart';
+import 'api/lightning.dart';
 import 'api/media_files.dart';
 import 'api/messages.dart';
 import 'api/metadata.dart';
@@ -159,6 +160,15 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ApiError dco_decode_box_autoadd_api_error(dynamic raw);
 
   @protected
+  bool dco_decode_box_autoadd_bool(dynamic raw);
+
+  @protected
+  CreateInvoiceParams dco_decode_box_autoadd_create_invoice_params(dynamic raw);
+
+  @protected
+  double dco_decode_box_autoadd_f_64(dynamic raw);
+
+  @protected
   FileMetadata dco_decode_box_autoadd_file_metadata(dynamic raw);
 
   @protected
@@ -176,13 +186,35 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Group dco_decode_box_autoadd_group(dynamic raw);
 
   @protected
+  PlatformInt64 dco_decode_box_autoadd_i_64(dynamic raw);
+
+  @protected
+  ListTransactionsParams dco_decode_box_autoadd_list_transactions_params(
+    dynamic raw,
+  );
+
+  @protected
+  PayInvoiceParams dco_decode_box_autoadd_pay_invoice_params(dynamic raw);
+
+  @protected
+  StrikeLightningConfig dco_decode_box_autoadd_strike_lightning_config(
+    dynamic raw,
+  );
+
+  @protected
   WhitenoiseConfig dco_decode_box_autoadd_whitenoise_config(dynamic raw);
 
   @protected
   ChatMessage dco_decode_chat_message(dynamic raw);
 
   @protected
+  CreateInvoiceParams dco_decode_create_invoice_params(dynamic raw);
+
+  @protected
   EmojiReaction dco_decode_emoji_reaction(dynamic raw);
+
+  @protected
+  double dco_decode_f_64(dynamic raw);
 
   @protected
   FileMetadata dco_decode_file_metadata(dynamic raw);
@@ -215,6 +247,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PlatformInt64 dco_decode_i_64(dynamic raw);
 
   @protected
+  LightningNodeInfo dco_decode_lightning_node_info(dynamic raw);
+
+  @protected
+  LightningTransaction dco_decode_lightning_transaction(dynamic raw);
+
+  @protected
   List<Tag>
   dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTag(
     dynamic raw,
@@ -242,6 +280,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<GroupInformation> dco_decode_list_group_information(dynamic raw);
 
   @protected
+  List<LightningTransaction> dco_decode_list_lightning_transaction(dynamic raw);
+
+  @protected
   List<MediaFile> dco_decode_list_media_file(dynamic raw);
 
   @protected
@@ -255,6 +296,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<SerializableToken> dco_decode_list_serializable_token(dynamic raw);
+
+  @protected
+  ListTransactionsParams dco_decode_list_transactions_params(dynamic raw);
 
   @protected
   List<User> dco_decode_list_user(dynamic raw);
@@ -278,10 +322,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   DateTime? dco_decode_opt_box_autoadd_Chrono_Utc(dynamic raw);
 
   @protected
+  bool? dco_decode_opt_box_autoadd_bool(dynamic raw);
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_64(dynamic raw);
+
+  @protected
   FileMetadata? dco_decode_opt_box_autoadd_file_metadata(dynamic raw);
 
   @protected
   FlutterEvent? dco_decode_opt_box_autoadd_flutter_event(dynamic raw);
+
+  @protected
+  PlatformInt64? dco_decode_opt_box_autoadd_i_64(dynamic raw);
 
   @protected
   List<Tag>?
@@ -299,6 +352,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   U8Array32? dco_decode_opt_u_8_array_32(dynamic raw);
 
   @protected
+  PayInvoiceParams dco_decode_pay_invoice_params(dynamic raw);
+
+  @protected
+  PayInvoiceResponse dco_decode_pay_invoice_response(dynamic raw);
+
+  @protected
   ReactionSummary dco_decode_reaction_summary(dynamic raw);
 
   @protected
@@ -309,6 +368,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   SerializableToken dco_decode_serializable_token(dynamic raw);
+
+  @protected
+  StrikeLightningConfig dco_decode_strike_lightning_config(dynamic raw);
 
   @protected
   int dco_decode_u_16(dynamic raw);
@@ -463,6 +525,17 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ApiError sse_decode_box_autoadd_api_error(SseDeserializer deserializer);
 
   @protected
+  bool sse_decode_box_autoadd_bool(SseDeserializer deserializer);
+
+  @protected
+  CreateInvoiceParams sse_decode_box_autoadd_create_invoice_params(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  double sse_decode_box_autoadd_f_64(SseDeserializer deserializer);
+
+  @protected
   FileMetadata sse_decode_box_autoadd_file_metadata(
     SseDeserializer deserializer,
   );
@@ -486,6 +559,24 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Group sse_decode_box_autoadd_group(SseDeserializer deserializer);
 
   @protected
+  PlatformInt64 sse_decode_box_autoadd_i_64(SseDeserializer deserializer);
+
+  @protected
+  ListTransactionsParams sse_decode_box_autoadd_list_transactions_params(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  PayInvoiceParams sse_decode_box_autoadd_pay_invoice_params(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  StrikeLightningConfig sse_decode_box_autoadd_strike_lightning_config(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   WhitenoiseConfig sse_decode_box_autoadd_whitenoise_config(
     SseDeserializer deserializer,
   );
@@ -494,7 +585,15 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ChatMessage sse_decode_chat_message(SseDeserializer deserializer);
 
   @protected
+  CreateInvoiceParams sse_decode_create_invoice_params(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   EmojiReaction sse_decode_emoji_reaction(SseDeserializer deserializer);
+
+  @protected
+  double sse_decode_f_64(SseDeserializer deserializer);
 
   @protected
   FileMetadata sse_decode_file_metadata(SseDeserializer deserializer);
@@ -527,6 +626,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PlatformInt64 sse_decode_i_64(SseDeserializer deserializer);
+
+  @protected
+  LightningNodeInfo sse_decode_lightning_node_info(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  LightningTransaction sse_decode_lightning_transaction(
+    SseDeserializer deserializer,
+  );
 
   @protected
   List<Tag>
@@ -562,6 +671,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  List<LightningTransaction> sse_decode_list_lightning_transaction(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   List<MediaFile> sse_decode_list_media_file(SseDeserializer deserializer);
 
   @protected
@@ -577,6 +691,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<SerializableToken> sse_decode_list_serializable_token(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  ListTransactionsParams sse_decode_list_transactions_params(
     SseDeserializer deserializer,
   );
 
@@ -606,6 +725,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   DateTime? sse_decode_opt_box_autoadd_Chrono_Utc(SseDeserializer deserializer);
 
   @protected
+  bool? sse_decode_opt_box_autoadd_bool(SseDeserializer deserializer);
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_64(SseDeserializer deserializer);
+
+  @protected
   FileMetadata? sse_decode_opt_box_autoadd_file_metadata(
     SseDeserializer deserializer,
   );
@@ -614,6 +739,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   FlutterEvent? sse_decode_opt_box_autoadd_flutter_event(
     SseDeserializer deserializer,
   );
+
+  @protected
+  PlatformInt64? sse_decode_opt_box_autoadd_i_64(SseDeserializer deserializer);
 
   @protected
   List<Tag>?
@@ -631,6 +759,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   U8Array32? sse_decode_opt_u_8_array_32(SseDeserializer deserializer);
 
   @protected
+  PayInvoiceParams sse_decode_pay_invoice_params(SseDeserializer deserializer);
+
+  @protected
+  PayInvoiceResponse sse_decode_pay_invoice_response(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   ReactionSummary sse_decode_reaction_summary(SseDeserializer deserializer);
 
   @protected
@@ -643,6 +779,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   SerializableToken sse_decode_serializable_token(SseDeserializer deserializer);
+
+  @protected
+  StrikeLightningConfig sse_decode_strike_lightning_config(
+    SseDeserializer deserializer,
+  );
 
   @protected
   int sse_decode_u_16(SseDeserializer deserializer);
@@ -820,6 +961,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_bool(bool self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_create_invoice_params(
+    CreateInvoiceParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_file_metadata(
     FileMetadata self,
     SseSerializer serializer,
@@ -847,6 +1000,30 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_group(Group self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_i_64(
+    PlatformInt64 self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_list_transactions_params(
+    ListTransactionsParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_pay_invoice_params(
+    PayInvoiceParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_strike_lightning_config(
+    StrikeLightningConfig self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_whitenoise_config(
     WhitenoiseConfig self,
     SseSerializer serializer,
@@ -856,7 +1033,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_chat_message(ChatMessage self, SseSerializer serializer);
 
   @protected
+  void sse_encode_create_invoice_params(
+    CreateInvoiceParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_emoji_reaction(EmojiReaction self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_f_64(double self, SseSerializer serializer);
 
   @protected
   void sse_encode_file_metadata(FileMetadata self, SseSerializer serializer);
@@ -896,6 +1082,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_lightning_node_info(
+    LightningNodeInfo self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_lightning_transaction(
+    LightningTransaction self,
+    SseSerializer serializer,
+  );
 
   @protected
   void
@@ -938,6 +1136,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_list_lightning_transaction(
+    List<LightningTransaction> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_media_file(
     List<MediaFile> self,
     SseSerializer serializer,
@@ -961,6 +1165,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_list_serializable_token(
     List<SerializableToken> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_transactions_params(
+    ListTransactionsParams self,
     SseSerializer serializer,
   );
 
@@ -995,6 +1205,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_opt_box_autoadd_bool(bool? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_64(double? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_file_metadata(
     FileMetadata? self,
     SseSerializer serializer,
@@ -1003,6 +1219,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_opt_box_autoadd_flutter_event(
     FlutterEvent? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_i_64(
+    PlatformInt64? self,
     SseSerializer serializer,
   );
 
@@ -1023,6 +1245,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_opt_u_8_array_32(U8Array32? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_pay_invoice_params(
+    PayInvoiceParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_pay_invoice_response(
+    PayInvoiceResponse self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_reaction_summary(
     ReactionSummary self,
     SseSerializer serializer,
@@ -1040,6 +1274,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_serializable_token(
     SerializableToken self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_strike_lightning_config(
+    StrikeLightningConfig self,
     SseSerializer serializer,
   );
 

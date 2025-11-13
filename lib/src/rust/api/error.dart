@@ -38,6 +38,9 @@ sealed class ApiError with _$ApiError implements FrbException {
   const factory ApiError.nostrHex({
     required String message,
   }) = ApiError_NostrHex;
+  const factory ApiError.lightningError(
+    String field0,
+  ) = ApiError_LightningError;
   const factory ApiError.other({
     required String message,
   }) = ApiError_Other;

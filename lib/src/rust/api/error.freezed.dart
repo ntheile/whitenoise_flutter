@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ApiError {
-  String get message => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) whitenoise,
@@ -27,6 +26,7 @@ mixin _$ApiError {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +38,7 @@ mixin _$ApiError {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -49,6 +50,7 @@ mixin _$ApiError {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -61,6 +63,7 @@ mixin _$ApiError {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +75,7 @@ mixin _$ApiError {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,23 +87,16 @@ mixin _$ApiError {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
-
-  /// Create a copy of ApiError
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ApiErrorCopyWith<ApiError> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ApiErrorCopyWith<$Res> {
   factory $ApiErrorCopyWith(ApiError value, $Res Function(ApiError) then) =
       _$ApiErrorCopyWithImpl<$Res, ApiError>;
-  @useResult
-  $Res call({String message});
 }
 
 /// @nodoc
@@ -114,30 +111,14 @@ class _$ApiErrorCopyWithImpl<$Res, $Val extends ApiError>
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _value.copyWith(
-            message:
-                null == message
-                    ? _value.message
-                    : message // ignore: cast_nullable_to_non_nullable
-                        as String,
-          )
-          as $Val,
-    );
-  }
 }
 
 /// @nodoc
-abstract class _$$ApiError_WhitenoiseImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_WhitenoiseImplCopyWith<$Res> {
   factory _$$ApiError_WhitenoiseImplCopyWith(
     _$ApiError_WhitenoiseImpl value,
     $Res Function(_$ApiError_WhitenoiseImpl) then,
   ) = __$$ApiError_WhitenoiseImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -213,6 +194,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return whitenoise(message);
@@ -228,6 +210,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return whitenoise?.call(message);
@@ -243,6 +226,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -262,6 +246,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return whitenoise(this);
@@ -277,6 +262,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return whitenoise?.call(this);
@@ -292,6 +278,7 @@ class _$ApiError_WhitenoiseImpl extends ApiError_Whitenoise {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -307,25 +294,21 @@ abstract class ApiError_Whitenoise extends ApiError {
       _$ApiError_WhitenoiseImpl;
   const ApiError_Whitenoise._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_WhitenoiseImplCopyWith<_$ApiError_WhitenoiseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_InvalidKeyImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_InvalidKeyImplCopyWith<$Res> {
   factory _$$ApiError_InvalidKeyImplCopyWith(
     _$ApiError_InvalidKeyImpl value,
     $Res Function(_$ApiError_InvalidKeyImpl) then,
   ) = __$$ApiError_InvalidKeyImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -401,6 +384,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return invalidKey(message);
@@ -416,6 +400,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return invalidKey?.call(message);
@@ -431,6 +416,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -450,6 +436,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return invalidKey(this);
@@ -465,6 +452,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return invalidKey?.call(this);
@@ -480,6 +468,7 @@ class _$ApiError_InvalidKeyImpl extends ApiError_InvalidKey {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -495,25 +484,21 @@ abstract class ApiError_InvalidKey extends ApiError {
       _$ApiError_InvalidKeyImpl;
   const ApiError_InvalidKey._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_InvalidKeyImplCopyWith<_$ApiError_InvalidKeyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_NostrUrlImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_NostrUrlImplCopyWith<$Res> {
   factory _$$ApiError_NostrUrlImplCopyWith(
     _$ApiError_NostrUrlImpl value,
     $Res Function(_$ApiError_NostrUrlImpl) then,
   ) = __$$ApiError_NostrUrlImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -589,6 +574,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return nostrUrl(message);
@@ -604,6 +590,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return nostrUrl?.call(message);
@@ -619,6 +606,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -638,6 +626,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return nostrUrl(this);
@@ -653,6 +642,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return nostrUrl?.call(this);
@@ -668,6 +658,7 @@ class _$ApiError_NostrUrlImpl extends ApiError_NostrUrl {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -683,25 +674,21 @@ abstract class ApiError_NostrUrl extends ApiError {
       _$ApiError_NostrUrlImpl;
   const ApiError_NostrUrl._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_NostrUrlImplCopyWith<_$ApiError_NostrUrlImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_NostrTagImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_NostrTagImplCopyWith<$Res> {
   factory _$$ApiError_NostrTagImplCopyWith(
     _$ApiError_NostrTagImpl value,
     $Res Function(_$ApiError_NostrTagImpl) then,
   ) = __$$ApiError_NostrTagImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -777,6 +764,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return nostrTag(message);
@@ -792,6 +780,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return nostrTag?.call(message);
@@ -807,6 +796,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -826,6 +816,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return nostrTag(this);
@@ -841,6 +832,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return nostrTag?.call(this);
@@ -856,6 +848,7 @@ class _$ApiError_NostrTagImpl extends ApiError_NostrTag {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -871,25 +864,21 @@ abstract class ApiError_NostrTag extends ApiError {
       _$ApiError_NostrTagImpl;
   const ApiError_NostrTag._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_NostrTagImplCopyWith<_$ApiError_NostrTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_NostrEventImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_NostrEventImplCopyWith<$Res> {
   factory _$$ApiError_NostrEventImplCopyWith(
     _$ApiError_NostrEventImpl value,
     $Res Function(_$ApiError_NostrEventImpl) then,
   ) = __$$ApiError_NostrEventImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -965,6 +954,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return nostrEvent(message);
@@ -980,6 +970,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return nostrEvent?.call(message);
@@ -995,6 +986,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -1014,6 +1006,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return nostrEvent(this);
@@ -1029,6 +1022,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return nostrEvent?.call(this);
@@ -1044,6 +1038,7 @@ class _$ApiError_NostrEventImpl extends ApiError_NostrEvent {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -1059,25 +1054,21 @@ abstract class ApiError_NostrEvent extends ApiError {
       _$ApiError_NostrEventImpl;
   const ApiError_NostrEvent._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_NostrEventImplCopyWith<_$ApiError_NostrEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_NostrParseImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_NostrParseImplCopyWith<$Res> {
   factory _$$ApiError_NostrParseImplCopyWith(
     _$ApiError_NostrParseImpl value,
     $Res Function(_$ApiError_NostrParseImpl) then,
   ) = __$$ApiError_NostrParseImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -1153,6 +1144,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return nostrParse(message);
@@ -1168,6 +1160,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return nostrParse?.call(message);
@@ -1183,6 +1176,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -1202,6 +1196,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return nostrParse(this);
@@ -1217,6 +1212,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return nostrParse?.call(this);
@@ -1232,6 +1228,7 @@ class _$ApiError_NostrParseImpl extends ApiError_NostrParse {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -1247,25 +1244,21 @@ abstract class ApiError_NostrParse extends ApiError {
       _$ApiError_NostrParseImpl;
   const ApiError_NostrParse._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_NostrParseImplCopyWith<_$ApiError_NostrParseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_NostrHexImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_NostrHexImplCopyWith<$Res> {
   factory _$$ApiError_NostrHexImplCopyWith(
     _$ApiError_NostrHexImpl value,
     $Res Function(_$ApiError_NostrHexImpl) then,
   ) = __$$ApiError_NostrHexImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -1341,6 +1334,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return nostrHex(message);
@@ -1356,6 +1350,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return nostrHex?.call(message);
@@ -1371,6 +1366,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -1390,6 +1386,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return nostrHex(this);
@@ -1405,6 +1402,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return nostrHex?.call(this);
@@ -1420,6 +1418,7 @@ class _$ApiError_NostrHexImpl extends ApiError_NostrHex {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -1435,25 +1434,209 @@ abstract class ApiError_NostrHex extends ApiError {
       _$ApiError_NostrHexImpl;
   const ApiError_NostrHex._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_NostrHexImplCopyWith<_$ApiError_NostrHexImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiError_OtherImplCopyWith<$Res>
-    implements $ApiErrorCopyWith<$Res> {
+abstract class _$$ApiError_LightningErrorImplCopyWith<$Res> {
+  factory _$$ApiError_LightningErrorImplCopyWith(
+    _$ApiError_LightningErrorImpl value,
+    $Res Function(_$ApiError_LightningErrorImpl) then,
+  ) = __$$ApiError_LightningErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$ApiError_LightningErrorImplCopyWithImpl<$Res>
+    extends _$ApiErrorCopyWithImpl<$Res, _$ApiError_LightningErrorImpl>
+    implements _$$ApiError_LightningErrorImplCopyWith<$Res> {
+  __$$ApiError_LightningErrorImplCopyWithImpl(
+    _$ApiError_LightningErrorImpl _value,
+    $Res Function(_$ApiError_LightningErrorImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? field0 = null}) {
+    return _then(
+      _$ApiError_LightningErrorImpl(
+        null == field0
+            ? _value.field0
+            : field0 // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ApiError_LightningErrorImpl extends ApiError_LightningError {
+  const _$ApiError_LightningErrorImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'ApiError.lightningError(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ApiError_LightningErrorImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ApiError_LightningErrorImplCopyWith<_$ApiError_LightningErrorImpl>
+  get copyWith => __$$ApiError_LightningErrorImplCopyWithImpl<
+    _$ApiError_LightningErrorImpl
+  >(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) whitenoise,
+    required TResult Function(String message) invalidKey,
+    required TResult Function(String message) nostrUrl,
+    required TResult Function(String message) nostrTag,
+    required TResult Function(String message) nostrEvent,
+    required TResult Function(String message) nostrParse,
+    required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
+    required TResult Function(String message) other,
+  }) {
+    return lightningError(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? whitenoise,
+    TResult? Function(String message)? invalidKey,
+    TResult? Function(String message)? nostrUrl,
+    TResult? Function(String message)? nostrTag,
+    TResult? Function(String message)? nostrEvent,
+    TResult? Function(String message)? nostrParse,
+    TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
+    TResult? Function(String message)? other,
+  }) {
+    return lightningError?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? whitenoise,
+    TResult Function(String message)? invalidKey,
+    TResult Function(String message)? nostrUrl,
+    TResult Function(String message)? nostrTag,
+    TResult Function(String message)? nostrEvent,
+    TResult Function(String message)? nostrParse,
+    TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
+    TResult Function(String message)? other,
+    required TResult orElse(),
+  }) {
+    if (lightningError != null) {
+      return lightningError(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ApiError_Whitenoise value) whitenoise,
+    required TResult Function(ApiError_InvalidKey value) invalidKey,
+    required TResult Function(ApiError_NostrUrl value) nostrUrl,
+    required TResult Function(ApiError_NostrTag value) nostrTag,
+    required TResult Function(ApiError_NostrEvent value) nostrEvent,
+    required TResult Function(ApiError_NostrParse value) nostrParse,
+    required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
+    required TResult Function(ApiError_Other value) other,
+  }) {
+    return lightningError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ApiError_Whitenoise value)? whitenoise,
+    TResult? Function(ApiError_InvalidKey value)? invalidKey,
+    TResult? Function(ApiError_NostrUrl value)? nostrUrl,
+    TResult? Function(ApiError_NostrTag value)? nostrTag,
+    TResult? Function(ApiError_NostrEvent value)? nostrEvent,
+    TResult? Function(ApiError_NostrParse value)? nostrParse,
+    TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
+    TResult? Function(ApiError_Other value)? other,
+  }) {
+    return lightningError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ApiError_Whitenoise value)? whitenoise,
+    TResult Function(ApiError_InvalidKey value)? invalidKey,
+    TResult Function(ApiError_NostrUrl value)? nostrUrl,
+    TResult Function(ApiError_NostrTag value)? nostrTag,
+    TResult Function(ApiError_NostrEvent value)? nostrEvent,
+    TResult Function(ApiError_NostrParse value)? nostrParse,
+    TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
+    TResult Function(ApiError_Other value)? other,
+    required TResult orElse(),
+  }) {
+    if (lightningError != null) {
+      return lightningError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ApiError_LightningError extends ApiError {
+  const factory ApiError_LightningError(final String field0) =
+      _$ApiError_LightningErrorImpl;
+  const ApiError_LightningError._() : super._();
+
+  String get field0;
+
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ApiError_LightningErrorImplCopyWith<_$ApiError_LightningErrorImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ApiError_OtherImplCopyWith<$Res> {
   factory _$$ApiError_OtherImplCopyWith(
     _$ApiError_OtherImpl value,
     $Res Function(_$ApiError_OtherImpl) then,
   ) = __$$ApiError_OtherImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String message});
 }
@@ -1529,6 +1712,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     required TResult Function(String message) nostrEvent,
     required TResult Function(String message) nostrParse,
     required TResult Function(String message) nostrHex,
+    required TResult Function(String field0) lightningError,
     required TResult Function(String message) other,
   }) {
     return other(message);
@@ -1544,6 +1728,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     TResult? Function(String message)? nostrEvent,
     TResult? Function(String message)? nostrParse,
     TResult? Function(String message)? nostrHex,
+    TResult? Function(String field0)? lightningError,
     TResult? Function(String message)? other,
   }) {
     return other?.call(message);
@@ -1559,6 +1744,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     TResult Function(String message)? nostrEvent,
     TResult Function(String message)? nostrParse,
     TResult Function(String message)? nostrHex,
+    TResult Function(String field0)? lightningError,
     TResult Function(String message)? other,
     required TResult orElse(),
   }) {
@@ -1578,6 +1764,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     required TResult Function(ApiError_NostrEvent value) nostrEvent,
     required TResult Function(ApiError_NostrParse value) nostrParse,
     required TResult Function(ApiError_NostrHex value) nostrHex,
+    required TResult Function(ApiError_LightningError value) lightningError,
     required TResult Function(ApiError_Other value) other,
   }) {
     return other(this);
@@ -1593,6 +1780,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     TResult? Function(ApiError_NostrEvent value)? nostrEvent,
     TResult? Function(ApiError_NostrParse value)? nostrParse,
     TResult? Function(ApiError_NostrHex value)? nostrHex,
+    TResult? Function(ApiError_LightningError value)? lightningError,
     TResult? Function(ApiError_Other value)? other,
   }) {
     return other?.call(this);
@@ -1608,6 +1796,7 @@ class _$ApiError_OtherImpl extends ApiError_Other {
     TResult Function(ApiError_NostrEvent value)? nostrEvent,
     TResult Function(ApiError_NostrParse value)? nostrParse,
     TResult Function(ApiError_NostrHex value)? nostrHex,
+    TResult Function(ApiError_LightningError value)? lightningError,
     TResult Function(ApiError_Other value)? other,
     required TResult orElse(),
   }) {
@@ -1623,12 +1812,10 @@ abstract class ApiError_Other extends ApiError {
       _$ApiError_OtherImpl;
   const ApiError_Other._() : super._();
 
-  @override
   String get message;
 
   /// Create a copy of ApiError
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiError_OtherImplCopyWith<_$ApiError_OtherImpl> get copyWith =>
       throw _privateConstructorUsedError;
