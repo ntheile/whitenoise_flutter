@@ -38,17 +38,22 @@ sealed class ApiError with _$ApiError implements FrbException {
   const factory ApiError.nostrHex({
     required String message,
   }) = ApiError_NostrHex;
+  const factory ApiError.lightningError(
+    String field0,
+  ) = ApiError_LightningError;
   const factory ApiError.other({
     required String message,
   }) = ApiError_Other;
 
   /// Get a user-friendly error type name
-  Future<String> errorType() => RustLib.instance.api.crateApiErrorApiErrorErrorType(
-    that: this,
-  );
+  Future<String> errorType() =>
+      RustLib.instance.api.crateApiErrorApiErrorErrorType(
+        that: this,
+      );
 
   /// Get the error message as a string
-  Future<String> messageText() => RustLib.instance.api.crateApiErrorApiErrorMessageText(
-    that: this,
-  );
+  Future<String> messageText() =>
+      RustLib.instance.api.crateApiErrorApiErrorMessageText(
+        that: this,
+      );
 }

@@ -30,7 +30,7 @@ use crate::api::messages::*;
 use crate::api::utils::*;
 use crate::api::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
-use flutter_rust_bridge::for_generated::{Lifetimeable, Lockable, transform_result_dco};
+use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
 
 // Section: boilerplate
@@ -41,7 +41,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.11.1";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -481785978;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1279661517;
 
 // Section: executor
 
@@ -2181,6 +2181,208 @@ fn wire__crate__api__messages__send_message_to_group_impl(
         },
     )
 }
+fn wire__crate__api__lightning__strike_create_invoice_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "strike_create_invoice",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config =
+                <crate::api::lightning::StrikeLightningConfig>::sse_decode(&mut deserializer);
+            let api_params =
+                <crate::api::lightning::CreateInvoiceParams>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, crate::api::error::ApiError>(
+                    (move || async move {
+                        let output_ok =
+                            crate::api::lightning::strike_create_invoice(api_config, api_params)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__lightning__strike_get_info_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "strike_get_info",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config =
+                <crate::api::lightning::StrikeLightningConfig>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, crate::api::error::ApiError>(
+                    (move || async move {
+                        let output_ok = crate::api::lightning::strike_get_info(api_config).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__lightning__strike_list_transactions_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "strike_list_transactions",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config =
+                <crate::api::lightning::StrikeLightningConfig>::sse_decode(&mut deserializer);
+            let api_params =
+                <crate::api::lightning::ListTransactionsParams>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, crate::api::error::ApiError>(
+                    (move || async move {
+                        let output_ok =
+                            crate::api::lightning::strike_list_transactions(api_config, api_params)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__lightning__strike_lookup_invoice_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "strike_lookup_invoice",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config =
+                <crate::api::lightning::StrikeLightningConfig>::sse_decode(&mut deserializer);
+            let api_payment_hash = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, crate::api::error::ApiError>(
+                    (move || async move {
+                        let output_ok = crate::api::lightning::strike_lookup_invoice(
+                            api_config,
+                            api_payment_hash,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__lightning__strike_pay_invoice_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "strike_pay_invoice",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config =
+                <crate::api::lightning::StrikeLightningConfig>::sse_decode(&mut deserializer);
+            let api_params =
+                <crate::api::lightning::PayInvoiceParams>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, crate::api::error::ApiError>(
+                    (move || async move {
+                        let output_ok =
+                            crate::api::lightning::strike_pay_invoice(api_config, api_params)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__crate__api__utils__string_from_relay_url_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -2876,6 +3078,10 @@ impl SseDecode for crate::api::error::ApiError {
                 };
             }
             7 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::error::ApiError::LightningError(var_field0);
+            }
+            8 => {
                 let mut var_message = <String>::sse_decode(deserializer);
                 return crate::api::error::ApiError::Other {
                     message: var_message,
@@ -2929,6 +3135,20 @@ impl SseDecode for crate::api::messages::ChatMessage {
     }
 }
 
+impl SseDecode for crate::api::lightning::CreateInvoiceParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_amountMsats = <Option<i64>>::sse_decode(deserializer);
+        let mut var_description = <Option<String>>::sse_decode(deserializer);
+        let mut var_expiry = <Option<i64>>::sse_decode(deserializer);
+        return crate::api::lightning::CreateInvoiceParams {
+            amount_msats: var_amountMsats,
+            description: var_description,
+            expiry: var_expiry,
+        };
+    }
+}
+
 impl SseDecode for crate::api::messages::EmojiReaction {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2940,6 +3160,13 @@ impl SseDecode for crate::api::messages::EmojiReaction {
             count: var_count,
             users: var_users,
         };
+    }
+}
+
+impl SseDecode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_f64::<NativeEndian>().unwrap()
     }
 }
 
@@ -3113,6 +3340,48 @@ impl SseDecode for i64 {
     }
 }
 
+impl SseDecode for crate::api::lightning::LightningNodeInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_alias = <String>::sse_decode(deserializer);
+        let mut var_publicKey = <String>::sse_decode(deserializer);
+        let mut var_sendBalanceMsats = <i64>::sse_decode(deserializer);
+        let mut var_receiveBalanceMsats = <i64>::sse_decode(deserializer);
+        return crate::api::lightning::LightningNodeInfo {
+            alias: var_alias,
+            public_key: var_publicKey,
+            send_balance_msats: var_sendBalanceMsats,
+            receive_balance_msats: var_receiveBalanceMsats,
+        };
+    }
+}
+
+impl SseDecode for crate::api::lightning::LightningTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_type = <String>::sse_decode(deserializer);
+        let mut var_invoice = <String>::sse_decode(deserializer);
+        let mut var_paymentHash = <String>::sse_decode(deserializer);
+        let mut var_amountMsats = <i64>::sse_decode(deserializer);
+        let mut var_description = <String>::sse_decode(deserializer);
+        let mut var_createdAt = <i64>::sse_decode(deserializer);
+        let mut var_expiresAt = <i64>::sse_decode(deserializer);
+        let mut var_settledAt = <i64>::sse_decode(deserializer);
+        let mut var_feesPaid = <i64>::sse_decode(deserializer);
+        return crate::api::lightning::LightningTransaction {
+            type_: var_type,
+            invoice: var_invoice,
+            payment_hash: var_paymentHash,
+            amount_msats: var_amountMsats,
+            description: var_description,
+            created_at: var_createdAt,
+            expires_at: var_expiresAt,
+            settled_at: var_settledAt,
+            fees_paid: var_feesPaid,
+        };
+    }
+}
+
 impl SseDecode for Vec<Tag> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3217,6 +3486,20 @@ impl SseDecode for Vec<crate::api::groups::GroupInformation> {
     }
 }
 
+impl SseDecode for Vec<crate::api::lightning::LightningTransaction> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::lightning::LightningTransaction>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<crate::api::media_files::MediaFile> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3278,6 +3561,20 @@ impl SseDecode for Vec<crate::api::messages::SerializableToken> {
             ));
         }
         return ans_;
+    }
+}
+
+impl SseDecode for crate::api::lightning::ListTransactionsParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_from = <i64>::sse_decode(deserializer);
+        let mut var_limit = <i64>::sse_decode(deserializer);
+        let mut var_search = <Option<String>>::sse_decode(deserializer);
+        return crate::api::lightning::ListTransactionsParams {
+            from: var_from,
+            limit: var_limit,
+            search: var_search,
+        };
     }
 }
 
@@ -3395,6 +3692,28 @@ impl SseDecode for Option<chrono::DateTime<chrono::Utc>> {
     }
 }
 
+impl SseDecode for Option<bool> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<bool>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<f64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<f64>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<crate::api::media_files::FileMetadata> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3415,6 +3734,17 @@ impl SseDecode for Option<crate::api::accounts::FlutterEvent> {
             return Some(<crate::api::accounts::FlutterEvent>::sse_decode(
                 deserializer,
             ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<i64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<i64>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -3465,6 +3795,32 @@ impl SseDecode for Option<[u8; 32]> {
     }
 }
 
+impl SseDecode for crate::api::lightning::PayInvoiceParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_invoice = <String>::sse_decode(deserializer);
+        let mut var_feeLimitPercentage = <Option<f64>>::sse_decode(deserializer);
+        return crate::api::lightning::PayInvoiceParams {
+            invoice: var_invoice,
+            fee_limit_percentage: var_feeLimitPercentage,
+        };
+    }
+}
+
+impl SseDecode for crate::api::lightning::PayInvoiceResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_paymentHash = <String>::sse_decode(deserializer);
+        let mut var_preimage = <String>::sse_decode(deserializer);
+        let mut var_feeMsats = <i64>::sse_decode(deserializer);
+        return crate::api::lightning::PayInvoiceResponse {
+            payment_hash: var_paymentHash,
+            preimage: var_preimage,
+            fee_msats: var_feeMsats,
+        };
+    }
+}
+
 impl SseDecode for crate::api::messages::ReactionSummary {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3509,6 +3865,24 @@ impl SseDecode for crate::api::messages::SerializableToken {
         return crate::api::messages::SerializableToken {
             token_type: var_tokenType,
             content: var_content,
+        };
+    }
+}
+
+impl SseDecode for crate::api::lightning::StrikeLightningConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_apiKey = <String>::sse_decode(deserializer);
+        let mut var_baseUrl = <Option<String>>::sse_decode(deserializer);
+        let mut var_socks5Proxy = <Option<String>>::sse_decode(deserializer);
+        let mut var_acceptInvalidCerts = <Option<bool>>::sse_decode(deserializer);
+        let mut var_httpTimeout = <Option<i64>>::sse_decode(deserializer);
+        return crate::api::lightning::StrikeLightningConfig {
+            api_key: var_apiKey,
+            base_url: var_baseUrl,
+            socks5_proxy: var_socks5Proxy,
+            accept_invalid_certs: var_acceptInvalidCerts,
+            http_timeout: var_httpTimeout,
         };
     }
 }
@@ -3820,31 +4194,53 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        57 => {
+        57 => wire__crate__api__lightning__strike_create_invoice_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        58 => wire__crate__api__lightning__strike_get_info_impl(port, ptr, rust_vec_len, data_len),
+        59 => wire__crate__api__lightning__strike_list_transactions_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        60 => wire__crate__api__lightning__strike_lookup_invoice_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        61 => {
+            wire__crate__api__lightning__strike_pay_invoice_impl(port, ptr, rust_vec_len, data_len)
+        }
+        62 => {
             wire__crate__api__utils__string_from_relay_url_impl(port, ptr, rust_vec_len, data_len)
         }
-        58 => wire__crate__api__utils__tag_from_vec_impl(port, ptr, rust_vec_len, data_len),
-        59 => wire__crate__api__accounts__unfollow_user_impl(port, ptr, rust_vec_len, data_len),
-        60 => wire__crate__api__accounts__update_account_metadata_impl(
+        63 => wire__crate__api__utils__tag_from_vec_impl(port, ptr, rust_vec_len, data_len),
+        64 => wire__crate__api__accounts__unfollow_user_impl(port, ptr, rust_vec_len, data_len),
+        65 => wire__crate__api__accounts__update_account_metadata_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        61 => wire__crate__api__update_theme_mode_impl(port, ptr, rust_vec_len, data_len),
-        62 => wire__crate__api__accounts__upload_account_profile_picture_impl(
+        66 => wire__crate__api__update_theme_mode_impl(port, ptr, rust_vec_len, data_len),
+        67 => wire__crate__api__accounts__upload_account_profile_picture_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        63 => {
+        68 => {
             wire__crate__api__media_files__upload_chat_media_impl(port, ptr, rust_vec_len, data_len)
         }
-        64 => wire__crate__api__groups__upload_group_image_impl(port, ptr, rust_vec_len, data_len),
-        65 => wire__crate__api__users__user_has_key_package_impl(port, ptr, rust_vec_len, data_len),
-        66 => wire__crate__api__users__user_metadata_impl(port, ptr, rust_vec_len, data_len),
-        67 => wire__crate__api__users__user_relays_impl(port, ptr, rust_vec_len, data_len),
+        69 => wire__crate__api__groups__upload_group_image_impl(port, ptr, rust_vec_len, data_len),
+        70 => wire__crate__api__users__user_has_key_package_impl(port, ptr, rust_vec_len, data_len),
+        71 => wire__crate__api__users__user_metadata_impl(port, ptr, rust_vec_len, data_len),
+        72 => wire__crate__api__users__user_relays_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -4000,8 +4396,11 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::ApiError {
             crate::api::error::ApiError::NostrHex { message } => {
                 [6.into_dart(), message.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::error::ApiError::LightningError(field0) => {
+                [7.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
             crate::api::error::ApiError::Other { message } => {
-                [7.into_dart(), message.into_into_dart().into_dart()].into_dart()
+                [8.into_dart(), message.into_into_dart().into_dart()].into_dart()
             }
             _ => {
                 unimplemented!("");
@@ -4045,6 +4444,28 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::messages::ChatMessage>
     for crate::api::messages::ChatMessage
 {
     fn into_into_dart(self) -> crate::api::messages::ChatMessage {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::CreateInvoiceParams {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.amount_msats.into_into_dart().into_dart(),
+            self.description.into_into_dart().into_dart(),
+            self.expiry.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::CreateInvoiceParams
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::CreateInvoiceParams>
+    for crate::api::lightning::CreateInvoiceParams
+{
+    fn into_into_dart(self) -> crate::api::lightning::CreateInvoiceParams {
         self
     }
 }
@@ -4261,6 +4682,79 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::groups::GroupType>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::LightningNodeInfo {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.alias.into_into_dart().into_dart(),
+            self.public_key.into_into_dart().into_dart(),
+            self.send_balance_msats.into_into_dart().into_dart(),
+            self.receive_balance_msats.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::LightningNodeInfo
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::LightningNodeInfo>
+    for crate::api::lightning::LightningNodeInfo
+{
+    fn into_into_dart(self) -> crate::api::lightning::LightningNodeInfo {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::LightningTransaction {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.type_.into_into_dart().into_dart(),
+            self.invoice.into_into_dart().into_dart(),
+            self.payment_hash.into_into_dart().into_dart(),
+            self.amount_msats.into_into_dart().into_dart(),
+            self.description.into_into_dart().into_dart(),
+            self.created_at.into_into_dart().into_dart(),
+            self.expires_at.into_into_dart().into_dart(),
+            self.settled_at.into_into_dart().into_dart(),
+            self.fees_paid.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::LightningTransaction
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::LightningTransaction>
+    for crate::api::lightning::LightningTransaction
+{
+    fn into_into_dart(self) -> crate::api::lightning::LightningTransaction {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::ListTransactionsParams {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.from.into_into_dart().into_dart(),
+            self.limit.into_into_dart().into_dart(),
+            self.search.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::ListTransactionsParams
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::ListTransactionsParams>
+    for crate::api::lightning::ListTransactionsParams
+{
+    fn into_into_dart(self) -> crate::api::lightning::ListTransactionsParams {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::media_files::MediaFile {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -4313,6 +4807,49 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::messages::MessageWithTokens>
     for crate::api::messages::MessageWithTokens
 {
     fn into_into_dart(self) -> crate::api::messages::MessageWithTokens {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::PayInvoiceParams {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.invoice.into_into_dart().into_dart(),
+            self.fee_limit_percentage.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::PayInvoiceParams
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::PayInvoiceParams>
+    for crate::api::lightning::PayInvoiceParams
+{
+    fn into_into_dart(self) -> crate::api::lightning::PayInvoiceParams {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::PayInvoiceResponse {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.payment_hash.into_into_dart().into_dart(),
+            self.preimage.into_into_dart().into_dart(),
+            self.fee_msats.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::PayInvoiceResponse
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::PayInvoiceResponse>
+    for crate::api::lightning::PayInvoiceResponse
+{
+    fn into_into_dart(self) -> crate::api::lightning::PayInvoiceResponse {
         self
     }
 }
@@ -4372,6 +4909,30 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::messages::SerializableToken>
     for crate::api::messages::SerializableToken
 {
     fn into_into_dart(self) -> crate::api::messages::SerializableToken {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::lightning::StrikeLightningConfig {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.api_key.into_into_dart().into_dart(),
+            self.base_url.into_into_dart().into_dart(),
+            self.socks5_proxy.into_into_dart().into_dart(),
+            self.accept_invalid_certs.into_into_dart().into_dart(),
+            self.http_timeout.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::lightning::StrikeLightningConfig
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::StrikeLightningConfig>
+    for crate::api::lightning::StrikeLightningConfig
+{
+    fn into_into_dart(self) -> crate::api::lightning::StrikeLightningConfig {
         self
     }
 }
@@ -4676,8 +5237,12 @@ impl SseEncode for crate::api::error::ApiError {
                 <i32>::sse_encode(6, serializer);
                 <String>::sse_encode(message, serializer);
             }
-            crate::api::error::ApiError::Other { message } => {
+            crate::api::error::ApiError::LightningError(field0) => {
                 <i32>::sse_encode(7, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::ApiError::Other { message } => {
+                <i32>::sse_encode(8, serializer);
                 <String>::sse_encode(message, serializer);
             }
             _ => {
@@ -4712,12 +5277,28 @@ impl SseEncode for crate::api::messages::ChatMessage {
     }
 }
 
+impl SseEncode for crate::api::lightning::CreateInvoiceParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<i64>>::sse_encode(self.amount_msats, serializer);
+        <Option<String>>::sse_encode(self.description, serializer);
+        <Option<i64>>::sse_encode(self.expiry, serializer);
+    }
+}
+
 impl SseEncode for crate::api::messages::EmojiReaction {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.emoji, serializer);
         <u64>::sse_encode(self.count, serializer);
         <Vec<String>>::sse_encode(self.users, serializer);
+    }
+}
+
+impl SseEncode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_f64::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -4845,6 +5426,31 @@ impl SseEncode for i64 {
     }
 }
 
+impl SseEncode for crate::api::lightning::LightningNodeInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.alias, serializer);
+        <String>::sse_encode(self.public_key, serializer);
+        <i64>::sse_encode(self.send_balance_msats, serializer);
+        <i64>::sse_encode(self.receive_balance_msats, serializer);
+    }
+}
+
+impl SseEncode for crate::api::lightning::LightningTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.type_, serializer);
+        <String>::sse_encode(self.invoice, serializer);
+        <String>::sse_encode(self.payment_hash, serializer);
+        <i64>::sse_encode(self.amount_msats, serializer);
+        <String>::sse_encode(self.description, serializer);
+        <i64>::sse_encode(self.created_at, serializer);
+        <i64>::sse_encode(self.expires_at, serializer);
+        <i64>::sse_encode(self.settled_at, serializer);
+        <i64>::sse_encode(self.fees_paid, serializer);
+    }
+}
+
 impl SseEncode for Vec<Tag> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4925,6 +5531,16 @@ impl SseEncode for Vec<crate::api::groups::GroupInformation> {
     }
 }
 
+impl SseEncode for Vec<crate::api::lightning::LightningTransaction> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::lightning::LightningTransaction>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<crate::api::media_files::MediaFile> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4972,6 +5588,15 @@ impl SseEncode for Vec<crate::api::messages::SerializableToken> {
         for item in self {
             <crate::api::messages::SerializableToken>::sse_encode(item, serializer);
         }
+    }
+}
+
+impl SseEncode for crate::api::lightning::ListTransactionsParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i64>::sse_encode(self.from, serializer);
+        <i64>::sse_encode(self.limit, serializer);
+        <Option<String>>::sse_encode(self.search, serializer);
     }
 }
 
@@ -5055,6 +5680,26 @@ impl SseEncode for Option<chrono::DateTime<chrono::Utc>> {
     }
 }
 
+impl SseEncode for Option<bool> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <bool>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<f64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <f64>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<crate::api::media_files::FileMetadata> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5071,6 +5716,16 @@ impl SseEncode for Option<crate::api::accounts::FlutterEvent> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::accounts::FlutterEvent>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<i64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <i64>::sse_encode(value, serializer);
         }
     }
 }
@@ -5115,6 +5770,23 @@ impl SseEncode for Option<[u8; 32]> {
     }
 }
 
+impl SseEncode for crate::api::lightning::PayInvoiceParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.invoice, serializer);
+        <Option<f64>>::sse_encode(self.fee_limit_percentage, serializer);
+    }
+}
+
+impl SseEncode for crate::api::lightning::PayInvoiceResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.payment_hash, serializer);
+        <String>::sse_encode(self.preimage, serializer);
+        <i64>::sse_encode(self.fee_msats, serializer);
+    }
+}
+
 impl SseEncode for crate::api::messages::ReactionSummary {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5145,6 +5817,17 @@ impl SseEncode for crate::api::messages::SerializableToken {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.token_type, serializer);
         <Option<String>>::sse_encode(self.content, serializer);
+    }
+}
+
+impl SseEncode for crate::api::lightning::StrikeLightningConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.api_key, serializer);
+        <Option<String>>::sse_encode(self.base_url, serializer);
+        <Option<String>>::sse_encode(self.socks5_proxy, serializer);
+        <Option<bool>>::sse_encode(self.accept_invalid_certs, serializer);
+        <Option<i64>>::sse_encode(self.http_timeout, serializer);
     }
 }
 
@@ -5303,7 +5986,7 @@ mod io {
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };
-    use flutter_rust_bridge::for_generated::{Lifetimeable, Lockable, transform_result_dco};
+    use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
 
     // Section: boilerplate
