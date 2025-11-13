@@ -103,8 +103,8 @@ flutter devices
 # Regenerate flutter_rust_bridge code
 just regenerate
 cd rust && cargo build --target aarch64-linux-android --release
-cd /Users/nick/code/whitenoise_flutter && cp rust/target/aarch64-linux-android/release/librust_lib_whitenoise.so android/app/src/main/jniLibs/arm64-v8a/
-flutter rub
+cd ~/code/whitenoise_flutter && cp rust/target/aarch64-linux-android/release/librust_lib_whitenoise.so android/app/src/main/jniLibs/arm64-v8a/
+flutter run
 
 # Install dependencies
 just deps              # Install both Flutter and Rust deps

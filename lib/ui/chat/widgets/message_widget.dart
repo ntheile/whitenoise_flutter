@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:whitenoise/config/states/chat_search_state.dart';
 import 'package:whitenoise/domain/models/message_model.dart';
 import 'package:whitenoise/ui/chat/widgets/chat_bubble/bubble.dart';
+import 'package:whitenoise/ui/chat/widgets/lightning_payment_widget.dart';
 import 'package:whitenoise/ui/chat/widgets/media_modal.dart';
 import 'package:whitenoise/ui/chat/widgets/message_media_grid.dart';
 import 'package:whitenoise/ui/chat/widgets/message_reply_box.dart';
@@ -102,6 +103,53 @@ class MessageWidget extends StatelessWidget {
   }
 
   Widget _buildMessageContent(BuildContext context) {
+    // Check if this is a Lightning payment request
+    final content = message.content ?? '';
+    final isPaymentRequest = content.contains('⚡ Payment Request:') && 
+                             content.contains('Invoice:');
+    
+    if (isPaymentRequest) {
+      // Extract payment details
+      final lines = content.split('\n');
+      int? amountSats;
+      String? description;
+      String? invoice;
+      String? paymentHash;
+      
+      for (final line in lines) {
+        if (line.contains('⚡ Payment Request:')) {
+          final amountMatch = RegExp(r'(\d+)\s*sats').firstMatch(line);
+          if (amountMatch != null) {
+            amountSats = int.tryParse(amountMatch.group(1)!);
+          }
+        } else if (line.startsWith('Invoice:')) {
+          invoice = line.substring('Invoice:'.length).trim();
+        } else if (line.startsWith('PaymentHash:')) {
+          paymentHash = line.substring('PaymentHash:'.length).trim();
+        } else if (line.isNotEmpty && !line.contains('Payment Request') && 
+                   !line.contains('Invoice:') && !line.contains('PaymentHash:')) {
+          description = (description ?? '') + line.trim() + ' ';
+        }
+      }
+      
+      if (amountSats != null && invoice != null && invoice.isNotEmpty) {
+        return Padding(
+          padding: EdgeInsets.only(
+            right: message.isMe ? 8.w : 0,
+            left: message.isMe ? 0 : 8.w,
+          ),
+          child: LightningPaymentWidget(
+            invoice: invoice,
+            amountSats: amountSats,
+            description: description?.trim(),
+            isMe: message.isMe,
+            paymentHash: paymentHash,
+          ),
+        );
+      }
+    }
+    
+    // Regular message rendering
     return LayoutBuilder(
       builder: (context, constraints) {
         return IntrinsicWidth(

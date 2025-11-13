@@ -5,6 +5,7 @@ use lni::{
     PayInvoiceParams as LniPayInvoiceParams,
 };
 use lni::strike::{StrikeConfig, StrikeNode};
+use lni::nwc::{NwcConfig, NwcNode};
 
 use crate::api::error::ApiError;
 
@@ -237,6 +238,176 @@ pub async fn strike_list_transactions(
 ) -> Result<Vec<LightningTransaction>, ApiError> {
     let strike_config: StrikeConfig = config.into();
     let node = StrikeNode::new(strike_config);
+
+    let lni_params = LniListTransactionsParams {
+        from: params.from,
+        limit: params.limit,
+        payment_hash: None,
+        search: params.search,
+    };
+
+    let transactions = node.list_transactions(lni_params).await.map_err(|e| {
+        ApiError::LightningError(format!("Failed to list transactions: {}", e))
+    })?;
+
+    Ok(transactions
+        .into_iter()
+        .map(|t| LightningTransaction {
+            type_: t.type_,
+            invoice: t.invoice,
+            payment_hash: t.payment_hash,
+            amount_msats: t.amount_msats,
+            description: t.description,
+            created_at: t.created_at,
+            expires_at: t.expires_at,
+            settled_at: t.settled_at,
+            fees_paid: t.fees_paid,
+        })
+        .collect())
+}
+
+/// Configuration for Nostr Wallet Connect
+#[frb(non_opaque)]
+#[derive(Debug, Clone)]
+pub struct NostrWalletConnectConfig {
+    /// NWC connection string (nostr+walletconnect://...)
+    pub nwc_uri: String,
+    /// Optional SOCKS5 proxy URL for Tor support
+    pub socks5_proxy: Option<String>,
+    /// Whether to accept invalid SSL certificates (for development)
+    pub accept_invalid_certs: Option<bool>,
+    /// HTTP timeout in seconds
+    pub http_timeout: Option<i64>,
+}
+
+impl From<NostrWalletConnectConfig> for NwcConfig {
+    fn from(config: NostrWalletConnectConfig) -> Self {
+        NwcConfig {
+            nwc_uri: config.nwc_uri,
+            socks5_proxy: config.socks5_proxy,
+            accept_invalid_certs: config.accept_invalid_certs,
+            http_timeout: config.http_timeout,
+        }
+    }
+}
+
+/// Get NWC node information including balance
+#[frb]
+pub async fn nwc_get_info(config: NostrWalletConnectConfig) -> Result<LightningNodeInfo, ApiError> {
+    let nwc_config: NwcConfig = config.into();
+    let node = NwcNode::new(nwc_config);
+    
+    let info = node.get_info().await.map_err(|e| {
+        ApiError::LightningError(format!("Failed to get NWC node info: {}", e))
+    })?;
+
+    Ok(LightningNodeInfo {
+        alias: info.alias,
+        public_key: info.pubkey,
+        send_balance_msats: info.send_balance_msat,
+        receive_balance_msats: info.receive_balance_msat,
+    })
+}
+
+/// Create a Lightning invoice with NWC
+#[frb]
+pub async fn nwc_create_invoice(
+    config: NostrWalletConnectConfig,
+    params: CreateInvoiceParams,
+) -> Result<LightningTransaction, ApiError> {
+    let nwc_config: NwcConfig = config.into();
+    let node = NwcNode::new(nwc_config);
+
+    let lni_params = LniCreateInvoiceParams {
+        invoice_type: InvoiceType::Bolt11,
+        amount_msats: params.amount_msats,
+        description: params.description,
+        expiry: params.expiry,
+        ..Default::default()
+    };
+
+    let transaction = node.create_invoice(lni_params).await.map_err(|e| {
+        ApiError::LightningError(format!("Failed to create invoice: {}", e))
+    })?;
+
+    Ok(LightningTransaction {
+        type_: transaction.type_,
+        invoice: transaction.invoice,
+        payment_hash: transaction.payment_hash,
+        amount_msats: transaction.amount_msats,
+        description: transaction.description,
+        created_at: transaction.created_at,
+        expires_at: transaction.expires_at,
+        settled_at: transaction.settled_at,
+        fees_paid: transaction.fees_paid,
+    })
+}
+
+/// Pay a Lightning invoice with NWC
+#[frb]
+pub async fn nwc_pay_invoice(
+    config: NostrWalletConnectConfig,
+    params: PayInvoiceParams,
+) -> Result<PayInvoiceResponse, ApiError> {
+    let nwc_config: NwcConfig = config.into();
+    let node = NwcNode::new(nwc_config);
+
+    let lni_params = LniPayInvoiceParams {
+        invoice: params.invoice,
+        fee_limit_percentage: params.fee_limit_percentage,
+        ..Default::default()
+    };
+
+    let response = node.pay_invoice(lni_params).await.map_err(|e| {
+        ApiError::LightningError(format!("Failed to pay invoice: {}", e))
+    })?;
+
+    Ok(PayInvoiceResponse {
+        payment_hash: response.payment_hash,
+        preimage: response.preimage,
+        fee_msats: response.fee_msats,
+    })
+}
+
+/// Lookup a Lightning invoice by payment hash with NWC
+#[frb]
+pub async fn nwc_lookup_invoice(
+    config: NostrWalletConnectConfig,
+    payment_hash: String,
+) -> Result<LightningTransaction, ApiError> {
+    let nwc_config: NwcConfig = config.into();
+    let node = NwcNode::new(nwc_config);
+
+    let params = LookupInvoiceParams {
+        payment_hash: Some(payment_hash),
+        ..Default::default()
+    };
+
+    let transaction = node.lookup_invoice(params).await.map_err(|e| {
+        ApiError::LightningError(format!("Failed to lookup invoice: {}", e))
+    })?;
+
+    Ok(LightningTransaction {
+        type_: transaction.type_,
+        invoice: transaction.invoice,
+        payment_hash: transaction.payment_hash,
+        amount_msats: transaction.amount_msats,
+        description: transaction.description,
+        created_at: transaction.created_at,
+        expires_at: transaction.expires_at,
+        settled_at: transaction.settled_at,
+        fees_paid: transaction.fees_paid,
+    })
+}
+
+/// List Lightning transactions with NWC
+#[frb]
+pub async fn nwc_list_transactions(
+    config: NostrWalletConnectConfig,
+    params: ListTransactionsParams,
+) -> Result<Vec<LightningTransaction>, ApiError> {
+    let nwc_config: NwcConfig = config.into();
+    let node = NwcNode::new(nwc_config);
 
     let lni_params = LniListTransactionsParams {
         from: params.from,

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logging/logging.dart';
@@ -6,7 +7,11 @@ import 'package:whitenoise/src/rust/api/lightning.dart';
 /// Service for managing Strike Lightning payments
 class StrikeLightningService {
   StrikeLightningService({FlutterSecureStorage? secureStorage})
-    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+    : _secureStorage = secureStorage ?? const FlutterSecureStorage(
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ),
+      );
 
   final FlutterSecureStorage _secureStorage;
   final _logger = Logger('StrikeLightningService');
@@ -15,10 +20,17 @@ class StrikeLightningService {
   /// Save Strike API key securely
   Future<void> saveApiKey(String apiKey) async {
     try {
+      debugPrint('💾 Attempting to save Strike API key: ${apiKey.length} chars');
       await _secureStorage.write(key: _apiKeyStorageKey, value: apiKey);
       _logger.info('Strike API key saved');
+      debugPrint('✅ Strike API key saved successfully');
+      
+      // Verify it was saved
+      final retrieved = await _secureStorage.read(key: _apiKeyStorageKey);
+      debugPrint('🔍 Verification read: ${retrieved != null ? "${retrieved.length} chars" : "null"}');
     } catch (e, st) {
       _logger.severe('Failed to save Strike API key', e, st);
+      debugPrint('❌ Failed to save Strike API key: $e');
       rethrow;
     }
   }
@@ -26,7 +38,9 @@ class StrikeLightningService {
   /// Get stored Strike API key
   Future<String?> getApiKey() async {
     try {
-      return await _secureStorage.read(key: _apiKeyStorageKey);
+      final key = await _secureStorage.read(key: _apiKeyStorageKey);
+      debugPrint('🔑 Strike API key retrieved: ${key != null ? "${key.length} chars" : "null"}');
+      return key;
     } catch (e, st) {
       _logger.severe('Failed to read Strike API key', e, st);
       return null;

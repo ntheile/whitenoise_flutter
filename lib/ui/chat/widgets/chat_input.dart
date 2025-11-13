@@ -10,6 +10,7 @@ import 'package:whitenoise/config/providers/chat_provider.dart';
 import 'package:whitenoise/ui/chat/widgets/chat_input_media_selector.dart';
 import 'package:whitenoise/ui/chat/widgets/chat_input_reply_preview.dart';
 import 'package:whitenoise/ui/chat/widgets/chat_input_send_button.dart';
+import 'package:whitenoise/ui/chat/widgets/lightning_payment_request_dialog.dart';
 import 'package:whitenoise/ui/chat/widgets/media_preview.dart';
 import 'package:whitenoise/ui/core/themes/assets.dart';
 import 'package:whitenoise/ui/core/themes/src/extensions.dart';
@@ -101,6 +102,22 @@ class _ChatInputState extends ConsumerState<ChatInput> with WidgetsBindingObserv
   void _removeImage(int index) {
     final chatInputNotifier = ref.read(chatInputProvider(widget.groupId).notifier);
     chatInputNotifier.removeImage(index);
+  }
+
+  void _showPaymentRequestDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => LightningPaymentRequestDialog(
+        onRequestCreated: (invoice, amountSats, description, paymentHash) {
+          // Send payment request as a special message with payment hash
+          final paymentText = '⚡ Payment Request: $amountSats sats';
+          final fullMessage = description != null && description.isNotEmpty
+              ? '$paymentText\n$description\n\nInvoice: $invoice\nPaymentHash: $paymentHash'
+              : '$paymentText\n\nInvoice: $invoice\nPaymentHash: $paymentHash';
+          widget.onSend(fullMessage, false);
+        },
+      ),
+    );
   }
 
   void _measureSingleLineHeight() {
@@ -274,7 +291,7 @@ class _ChatInputState extends ConsumerState<ChatInput> with WidgetsBindingObserv
                               ),
                               Row(
                                 children: [
-                                  if (chatInputState.selectedMedia.isEmpty)
+                                  if (chatInputState.selectedMedia.isEmpty) ...[
                                     GestureDetector(
                                       onTap: _toggleMediaSelector,
                                       child: Padding(
@@ -286,6 +303,18 @@ class _ChatInputState extends ConsumerState<ChatInput> with WidgetsBindingObserv
                                         ),
                                       ),
                                     ),
+                                    GestureDetector(
+                                      onTap: _showPaymentRequestDialog,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 12.w),
+                                        child: Icon(
+                                          Icons.bolt,
+                                          size: 18.w,
+                                          color: const Color(0xFFFFD700),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                   Expanded(
                                     child: WnTextFormField(
                                       key: _inputKey,

@@ -194,6 +194,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  NostrWalletConnectConfig dco_decode_box_autoadd_nostr_wallet_connect_config(
+    dynamic raw,
+  );
+
+  @protected
   PayInvoiceParams dco_decode_box_autoadd_pay_invoice_params(dynamic raw);
 
   @protected
@@ -314,6 +319,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MessageWithTokens dco_decode_message_with_tokens(dynamic raw);
+
+  @protected
+  NostrWalletConnectConfig dco_decode_nostr_wallet_connect_config(dynamic raw);
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
@@ -567,6 +575,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  NostrWalletConnectConfig sse_decode_box_autoadd_nostr_wallet_connect_config(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   PayInvoiceParams sse_decode_box_autoadd_pay_invoice_params(
     SseDeserializer deserializer,
   );
@@ -715,6 +728,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MessageWithTokens sse_decode_message_with_tokens(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  NostrWalletConnectConfig sse_decode_nostr_wallet_connect_config(
     SseDeserializer deserializer,
   );
 
@@ -1012,6 +1030,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_nostr_wallet_connect_config(
+    NostrWalletConnectConfig self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_pay_invoice_params(
     PayInvoiceParams self,
     SseSerializer serializer,
@@ -1192,6 +1216,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_message_with_tokens(
     MessageWithTokens self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_nostr_wallet_connect_config(
+    NostrWalletConnectConfig self,
     SseSerializer serializer,
   );
 

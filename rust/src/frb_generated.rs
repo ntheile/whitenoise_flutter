@@ -25,8 +25,8 @@ clippy::needless_borrow
 
 // Section: imports
 
-use crate::api::*;
 use crate::api::utils::*;
+use crate::api::*;
 use crate::api::accounts::*;
 use crate::api::messages::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
@@ -40,7 +40,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
                     default_rust_auto_opaque = RustAutoOpaqueMoi,
                 );
                 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.11.1";
-                pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1279661517;
+                pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -2030964695;
             
 
 // Section: executor
@@ -510,6 +510,55 @@ let api_group_data = <crate::api::groups::FlutterGroupDataUpdate>::sse_decode(&m
                 transform_result_sse::<_, crate::api::error::ApiError>((move || {
                      let output_ok = crate::api::utils::npub_from_hex_pubkey(&api_hex_pubkey)?;   Ok(output_ok)
                 })()) })
+            }fn wire__crate__api__lightning__nwc_create_invoice_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
+                FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "nwc_create_invoice", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config = <crate::api::lightning::NostrWalletConnectConfig>::sse_decode(&mut deserializer);
+let api_params = <crate::api::lightning::CreateInvoiceParams>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, crate::api::error::ApiError>((move || async move {
+                         let output_ok = crate::api::lightning::nwc_create_invoice(api_config, api_params).await?;   Ok(output_ok)
+                    })().await)
+                } })
+            }fn wire__crate__api__lightning__nwc_get_info_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
+                FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "nwc_get_info", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config = <crate::api::lightning::NostrWalletConnectConfig>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, crate::api::error::ApiError>((move || async move {
+                         let output_ok = crate::api::lightning::nwc_get_info(api_config).await?;   Ok(output_ok)
+                    })().await)
+                } })
+            }fn wire__crate__api__lightning__nwc_list_transactions_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
+                FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "nwc_list_transactions", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config = <crate::api::lightning::NostrWalletConnectConfig>::sse_decode(&mut deserializer);
+let api_params = <crate::api::lightning::ListTransactionsParams>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, crate::api::error::ApiError>((move || async move {
+                         let output_ok = crate::api::lightning::nwc_list_transactions(api_config, api_params).await?;   Ok(output_ok)
+                    })().await)
+                } })
+            }fn wire__crate__api__lightning__nwc_lookup_invoice_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
+                FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "nwc_lookup_invoice", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config = <crate::api::lightning::NostrWalletConnectConfig>::sse_decode(&mut deserializer);
+let api_payment_hash = <String>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, crate::api::error::ApiError>((move || async move {
+                         let output_ok = crate::api::lightning::nwc_lookup_invoice(api_config, api_payment_hash).await?;   Ok(output_ok)
+                    })().await)
+                } })
+            }fn wire__crate__api__lightning__nwc_pay_invoice_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
+                FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "nwc_pay_invoice", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_config = <crate::api::lightning::NostrWalletConnectConfig>::sse_decode(&mut deserializer);
+let api_params = <crate::api::lightning::PayInvoiceParams>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, crate::api::error::ApiError>((move || async move {
+                         let output_ok = crate::api::lightning::nwc_pay_invoice(api_config, api_params).await?;   Ok(output_ok)
+                    })().await)
+                } })
             }fn wire__crate__api__welcomes__pending_welcomes_impl(port_: flutter_rust_bridge::for_generated::MessagePort,ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,rust_vec_len_: i32,data_len_: i32)  {
                 FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "pending_welcomes", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
             let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
@@ -1248,6 +1297,15 @@ let mut var_tokens = <Vec<crate::api::messages::SerializableToken>>::sse_decode(
 return crate::api::messages::MessageWithTokens{id: var_id, pubkey: var_pubkey, kind: var_kind, created_at: var_createdAt, content: var_content, tokens: var_tokens};}
                 }
                 
+                impl SseDecode for crate::api::lightning::NostrWalletConnectConfig {
+                    // Codec=Sse (Serialization based), see doc to use other codecs
+                    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {let mut var_nwcUri = <String>::sse_decode(deserializer);
+let mut var_socks5Proxy = <Option<String>>::sse_decode(deserializer);
+let mut var_acceptInvalidCerts = <Option<bool>>::sse_decode(deserializer);
+let mut var_httpTimeout = <Option<i64>>::sse_decode(deserializer);
+return crate::api::lightning::NostrWalletConnectConfig{nwc_uri: var_nwcUri, socks5_proxy: var_socks5Proxy, accept_invalid_certs: var_acceptInvalidCerts, http_timeout: var_httpTimeout};}
+                }
+                
                 impl SseDecode for Option<String> {
                     // Codec=Sse (Serialization based), see doc to use other codecs
                     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {if (<bool>::sse_decode(deserializer)) {
@@ -1556,31 +1614,36 @@ return crate::api::WhitenoiseConfig{data_dir: var_dataDir, logs_dir: var_logsDir
 44 => wire__crate__api__initialize_whitenoise_impl(port, ptr, rust_vec_len, data_len),
 45 => wire__crate__api__accounts__login_impl(port, ptr, rust_vec_len, data_len),
 46 => wire__crate__api__accounts__logout_impl(port, ptr, rust_vec_len, data_len),
-48 => wire__crate__api__welcomes__pending_welcomes_impl(port, ptr, rust_vec_len, data_len),
-49 => wire__crate__api__accounts__publish_account_key_package_impl(port, ptr, rust_vec_len, data_len),
-50 => wire__crate__api__relays__relay_type_inbox_impl(port, ptr, rust_vec_len, data_len),
-51 => wire__crate__api__relays__relay_type_key_package_impl(port, ptr, rust_vec_len, data_len),
-52 => wire__crate__api__relays__relay_type_nip65_impl(port, ptr, rust_vec_len, data_len),
-53 => wire__crate__api__utils__relay_url_from_string_impl(port, ptr, rust_vec_len, data_len),
-54 => wire__crate__api__accounts__remove_account_relay_impl(port, ptr, rust_vec_len, data_len),
-55 => wire__crate__api__groups__remove_members_from_group_impl(port, ptr, rust_vec_len, data_len),
-56 => wire__crate__api__messages__send_message_to_group_impl(port, ptr, rust_vec_len, data_len),
-57 => wire__crate__api__lightning__strike_create_invoice_impl(port, ptr, rust_vec_len, data_len),
-58 => wire__crate__api__lightning__strike_get_info_impl(port, ptr, rust_vec_len, data_len),
-59 => wire__crate__api__lightning__strike_list_transactions_impl(port, ptr, rust_vec_len, data_len),
-60 => wire__crate__api__lightning__strike_lookup_invoice_impl(port, ptr, rust_vec_len, data_len),
-61 => wire__crate__api__lightning__strike_pay_invoice_impl(port, ptr, rust_vec_len, data_len),
-62 => wire__crate__api__utils__string_from_relay_url_impl(port, ptr, rust_vec_len, data_len),
-63 => wire__crate__api__utils__tag_from_vec_impl(port, ptr, rust_vec_len, data_len),
-64 => wire__crate__api__accounts__unfollow_user_impl(port, ptr, rust_vec_len, data_len),
-65 => wire__crate__api__accounts__update_account_metadata_impl(port, ptr, rust_vec_len, data_len),
-66 => wire__crate__api__update_theme_mode_impl(port, ptr, rust_vec_len, data_len),
-67 => wire__crate__api__accounts__upload_account_profile_picture_impl(port, ptr, rust_vec_len, data_len),
-68 => wire__crate__api__media_files__upload_chat_media_impl(port, ptr, rust_vec_len, data_len),
-69 => wire__crate__api__groups__upload_group_image_impl(port, ptr, rust_vec_len, data_len),
-70 => wire__crate__api__users__user_has_key_package_impl(port, ptr, rust_vec_len, data_len),
-71 => wire__crate__api__users__user_metadata_impl(port, ptr, rust_vec_len, data_len),
-72 => wire__crate__api__users__user_relays_impl(port, ptr, rust_vec_len, data_len),
+48 => wire__crate__api__lightning__nwc_create_invoice_impl(port, ptr, rust_vec_len, data_len),
+49 => wire__crate__api__lightning__nwc_get_info_impl(port, ptr, rust_vec_len, data_len),
+50 => wire__crate__api__lightning__nwc_list_transactions_impl(port, ptr, rust_vec_len, data_len),
+51 => wire__crate__api__lightning__nwc_lookup_invoice_impl(port, ptr, rust_vec_len, data_len),
+52 => wire__crate__api__lightning__nwc_pay_invoice_impl(port, ptr, rust_vec_len, data_len),
+53 => wire__crate__api__welcomes__pending_welcomes_impl(port, ptr, rust_vec_len, data_len),
+54 => wire__crate__api__accounts__publish_account_key_package_impl(port, ptr, rust_vec_len, data_len),
+55 => wire__crate__api__relays__relay_type_inbox_impl(port, ptr, rust_vec_len, data_len),
+56 => wire__crate__api__relays__relay_type_key_package_impl(port, ptr, rust_vec_len, data_len),
+57 => wire__crate__api__relays__relay_type_nip65_impl(port, ptr, rust_vec_len, data_len),
+58 => wire__crate__api__utils__relay_url_from_string_impl(port, ptr, rust_vec_len, data_len),
+59 => wire__crate__api__accounts__remove_account_relay_impl(port, ptr, rust_vec_len, data_len),
+60 => wire__crate__api__groups__remove_members_from_group_impl(port, ptr, rust_vec_len, data_len),
+61 => wire__crate__api__messages__send_message_to_group_impl(port, ptr, rust_vec_len, data_len),
+62 => wire__crate__api__lightning__strike_create_invoice_impl(port, ptr, rust_vec_len, data_len),
+63 => wire__crate__api__lightning__strike_get_info_impl(port, ptr, rust_vec_len, data_len),
+64 => wire__crate__api__lightning__strike_list_transactions_impl(port, ptr, rust_vec_len, data_len),
+65 => wire__crate__api__lightning__strike_lookup_invoice_impl(port, ptr, rust_vec_len, data_len),
+66 => wire__crate__api__lightning__strike_pay_invoice_impl(port, ptr, rust_vec_len, data_len),
+67 => wire__crate__api__utils__string_from_relay_url_impl(port, ptr, rust_vec_len, data_len),
+68 => wire__crate__api__utils__tag_from_vec_impl(port, ptr, rust_vec_len, data_len),
+69 => wire__crate__api__accounts__unfollow_user_impl(port, ptr, rust_vec_len, data_len),
+70 => wire__crate__api__accounts__update_account_metadata_impl(port, ptr, rust_vec_len, data_len),
+71 => wire__crate__api__update_theme_mode_impl(port, ptr, rust_vec_len, data_len),
+72 => wire__crate__api__accounts__upload_account_profile_picture_impl(port, ptr, rust_vec_len, data_len),
+73 => wire__crate__api__media_files__upload_chat_media_impl(port, ptr, rust_vec_len, data_len),
+74 => wire__crate__api__groups__upload_group_image_impl(port, ptr, rust_vec_len, data_len),
+75 => wire__crate__api__users__user_has_key_package_impl(port, ptr, rust_vec_len, data_len),
+76 => wire__crate__api__users__user_metadata_impl(port, ptr, rust_vec_len, data_len),
+77 => wire__crate__api__users__user_relays_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
                 }
@@ -2044,6 +2107,23 @@ self.tokens.into_into_dart().into_dart()
             impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::messages::MessageWithTokens {}
 impl flutter_rust_bridge::IntoIntoDart<crate::api::messages::MessageWithTokens> for crate::api::messages::MessageWithTokens {
             fn into_into_dart(self) -> crate::api::messages::MessageWithTokens {
+                self
+            }
+        }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+            impl flutter_rust_bridge::IntoDart for crate::api::lightning::NostrWalletConnectConfig {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    [
+                    self.nwc_uri.into_into_dart().into_dart(),
+self.socks5_proxy.into_into_dart().into_dart(),
+self.accept_invalid_certs.into_into_dart().into_dart(),
+self.http_timeout.into_into_dart().into_dart()
+                ].into_dart()
+                }
+            }
+            impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::lightning::NostrWalletConnectConfig {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::lightning::NostrWalletConnectConfig> for crate::api::lightning::NostrWalletConnectConfig {
+            fn into_into_dart(self) -> crate::api::lightning::NostrWalletConnectConfig {
                 self
             }
         }
@@ -2653,6 +2733,14 @@ crate::api::groups::GroupType::Group => { 1 }
 <Vec<crate::api::messages::SerializableToken>>::sse_encode(self.tokens, serializer);}
                 }
                 
+                impl SseEncode for crate::api::lightning::NostrWalletConnectConfig {
+                    // Codec=Sse (Serialization based), see doc to use other codecs
+                    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {<String>::sse_encode(self.nwc_uri, serializer);
+<Option<String>>::sse_encode(self.socks5_proxy, serializer);
+<Option<bool>>::sse_encode(self.accept_invalid_certs, serializer);
+<Option<i64>>::sse_encode(self.http_timeout, serializer);}
+                }
+                
                 impl SseEncode for Option<String> {
                     // Codec=Sse (Serialization based), see doc to use other codecs
                     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {<bool>::sse_encode(self.is_some(), serializer);
@@ -2893,8 +2981,8 @@ crate::api::welcomes::WelcomeState::Ignored => { 3 }
 
 // Section: imports
 
-use crate::api::*;
 use crate::api::utils::*;
+use crate::api::*;
 use crate::api::accounts::*;
 use crate::api::messages::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};

@@ -82,7 +82,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => 1279661517;
+  int get rustContentHash => -2030964695;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -273,6 +273,30 @@ abstract class RustLibApi extends BaseApi {
   Future<void> crateApiAccountsLogout({required String pubkey});
 
   String crateApiUtilsNpubFromHexPubkey({required String hexPubkey});
+
+  Future<LightningTransaction> crateApiLightningNwcCreateInvoice({
+    required NostrWalletConnectConfig config,
+    required CreateInvoiceParams params,
+  });
+
+  Future<LightningNodeInfo> crateApiLightningNwcGetInfo({
+    required NostrWalletConnectConfig config,
+  });
+
+  Future<List<LightningTransaction>> crateApiLightningNwcListTransactions({
+    required NostrWalletConnectConfig config,
+    required ListTransactionsParams params,
+  });
+
+  Future<LightningTransaction> crateApiLightningNwcLookupInvoice({
+    required NostrWalletConnectConfig config,
+    required String paymentHash,
+  });
+
+  Future<PayInvoiceResponse> crateApiLightningNwcPayInvoice({
+    required NostrWalletConnectConfig config,
+    required PayInvoiceParams params,
+  });
 
   Future<List<Welcome>> crateApiWelcomesPendingWelcomes({
     required String pubkey,
@@ -2017,6 +2041,194 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<LightningTransaction> crateApiLightningNwcCreateInvoice({
+    required NostrWalletConnectConfig config,
+    required CreateInvoiceParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_nostr_wallet_connect_config(
+            config,
+            serializer,
+          );
+          sse_encode_box_autoadd_create_invoice_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 48,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningNwcCreateInvoiceConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningNwcCreateInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'nwc_create_invoice',
+        argNames: ['config', 'params'],
+      );
+
+  @override
+  Future<LightningNodeInfo> crateApiLightningNwcGetInfo({
+    required NostrWalletConnectConfig config,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_nostr_wallet_connect_config(
+            config,
+            serializer,
+          );
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 49,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_node_info,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningNwcGetInfoConstMeta,
+        argValues: [config],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningNwcGetInfoConstMeta =>
+      const TaskConstMeta(
+        debugName: 'nwc_get_info',
+        argNames: ['config'],
+      );
+
+  @override
+  Future<List<LightningTransaction>> crateApiLightningNwcListTransactions({
+    required NostrWalletConnectConfig config,
+    required ListTransactionsParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_nostr_wallet_connect_config(
+            config,
+            serializer,
+          );
+          sse_encode_box_autoadd_list_transactions_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 50,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningNwcListTransactionsConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningNwcListTransactionsConstMeta =>
+      const TaskConstMeta(
+        debugName: 'nwc_list_transactions',
+        argNames: ['config', 'params'],
+      );
+
+  @override
+  Future<LightningTransaction> crateApiLightningNwcLookupInvoice({
+    required NostrWalletConnectConfig config,
+    required String paymentHash,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_nostr_wallet_connect_config(
+            config,
+            serializer,
+          );
+          sse_encode_String(paymentHash, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 51,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_lightning_transaction,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningNwcLookupInvoiceConstMeta,
+        argValues: [config, paymentHash],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningNwcLookupInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'nwc_lookup_invoice',
+        argNames: ['config', 'paymentHash'],
+      );
+
+  @override
+  Future<PayInvoiceResponse> crateApiLightningNwcPayInvoice({
+    required NostrWalletConnectConfig config,
+    required PayInvoiceParams params,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_nostr_wallet_connect_config(
+            config,
+            serializer,
+          );
+          sse_encode_box_autoadd_pay_invoice_params(params, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 52,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_pay_invoice_response,
+          decodeErrorData: sse_decode_api_error,
+        ),
+        constMeta: kCrateApiLightningNwcPayInvoiceConstMeta,
+        argValues: [config, params],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLightningNwcPayInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: 'nwc_pay_invoice',
+        argNames: ['config', 'params'],
+      );
+
+  @override
   Future<List<Welcome>> crateApiWelcomesPendingWelcomes({
     required String pubkey,
   }) {
@@ -2028,7 +2240,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 48,
+            funcId: 53,
             port: port_,
           );
         },
@@ -2061,7 +2273,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 49,
+            funcId: 54,
             port: port_,
           );
         },
@@ -2091,7 +2303,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 50,
+            funcId: 55,
             port: port_,
           );
         },
@@ -2122,7 +2334,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 51,
+            funcId: 56,
             port: port_,
           );
         },
@@ -2153,7 +2365,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 52,
+            funcId: 57,
             port: port_,
           );
         },
@@ -2185,7 +2397,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 53,
+            funcId: 58,
             port: port_,
           );
         },
@@ -2226,7 +2438,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 54,
+            funcId: 59,
             port: port_,
           );
         },
@@ -2263,7 +2475,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 55,
+            funcId: 60,
             port: port_,
           );
         },
@@ -2307,7 +2519,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 56,
+            funcId: 61,
             port: port_,
           );
         },
@@ -2342,7 +2554,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 57,
+            funcId: 62,
             port: port_,
           );
         },
@@ -2375,7 +2587,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 58,
+            funcId: 63,
             port: port_,
           );
         },
@@ -2410,7 +2622,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 59,
+            funcId: 64,
             port: port_,
           );
         },
@@ -2445,7 +2657,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 60,
+            funcId: 65,
             port: port_,
           );
         },
@@ -2480,7 +2692,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 61,
+            funcId: 66,
             port: port_,
           );
         },
@@ -2514,7 +2726,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 62,
+            funcId: 67,
             port: port_,
           );
         },
@@ -2545,7 +2757,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 63,
+            funcId: 68,
             port: port_,
           );
         },
@@ -2580,7 +2792,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 64,
+            funcId: 69,
             port: port_,
           );
         },
@@ -2615,7 +2827,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 65,
+            funcId: 70,
             port: port_,
           );
         },
@@ -2649,7 +2861,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 66,
+            funcId: 71,
             port: port_,
           );
         },
@@ -2687,7 +2899,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 67,
+            funcId: 72,
             port: port_,
           );
         },
@@ -2724,7 +2936,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 68,
+            funcId: 73,
             port: port_,
           );
         },
@@ -2763,7 +2975,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 69,
+            funcId: 74,
             port: port_,
           );
         },
@@ -2798,7 +3010,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 70,
+            funcId: 75,
             port: port_,
           );
         },
@@ -2833,7 +3045,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 71,
+            funcId: 76,
             port: port_,
           );
         },
@@ -2872,7 +3084,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 72,
+            funcId: 77,
             port: port_,
           );
         },
@@ -3227,6 +3439,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_list_transactions_params(raw);
+  }
+
+  @protected
+  NostrWalletConnectConfig dco_decode_box_autoadd_nostr_wallet_connect_config(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_nostr_wallet_connect_config(raw);
   }
 
   @protected
@@ -3622,6 +3842,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       createdAt: dco_decode_Chrono_Utc(arr[3]),
       content: dco_decode_opt_String(arr[4]),
       tokens: dco_decode_list_serializable_token(arr[5]),
+    );
+  }
+
+  @protected
+  NostrWalletConnectConfig dco_decode_nostr_wallet_connect_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return NostrWalletConnectConfig(
+      nwcUri: dco_decode_String(arr[0]),
+      socks5Proxy: dco_decode_opt_String(arr[1]),
+      acceptInvalidCerts: dco_decode_opt_box_autoadd_bool(arr[2]),
+      httpTimeout: dco_decode_opt_box_autoadd_i_64(arr[3]),
     );
   }
 
@@ -4252,6 +4486,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  NostrWalletConnectConfig sse_decode_box_autoadd_nostr_wallet_connect_config(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_nostr_wallet_connect_config(deserializer));
+  }
+
+  @protected
   PayInvoiceParams sse_decode_box_autoadd_pay_invoice_params(
     SseDeserializer deserializer,
   ) {
@@ -4820,6 +5062,25 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       createdAt: var_createdAt,
       content: var_content,
       tokens: var_tokens,
+    );
+  }
+
+  @protected
+  NostrWalletConnectConfig sse_decode_nostr_wallet_connect_config(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    final var_nwcUri = sse_decode_String(deserializer);
+    final var_socks5Proxy = sse_decode_opt_String(deserializer);
+    final var_acceptInvalidCerts = sse_decode_opt_box_autoadd_bool(
+      deserializer,
+    );
+    final var_httpTimeout = sse_decode_opt_box_autoadd_i_64(deserializer);
+    return NostrWalletConnectConfig(
+      nwcUri: var_nwcUri,
+      socks5Proxy: var_socks5Proxy,
+      acceptInvalidCerts: var_acceptInvalidCerts,
+      httpTimeout: var_httpTimeout,
     );
   }
 
@@ -5533,6 +5794,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_nostr_wallet_connect_config(
+    NostrWalletConnectConfig self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_nostr_wallet_connect_config(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_pay_invoice_params(
     PayInvoiceParams self,
     SseSerializer serializer,
@@ -5962,6 +6232,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_Chrono_Utc(self.createdAt, serializer);
     sse_encode_opt_String(self.content, serializer);
     sse_encode_list_serializable_token(self.tokens, serializer);
+  }
+
+  @protected
+  void sse_encode_nostr_wallet_connect_config(
+    NostrWalletConnectConfig self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.nwcUri, serializer);
+    sse_encode_opt_String(self.socks5Proxy, serializer);
+    sse_encode_opt_box_autoadd_bool(self.acceptInvalidCerts, serializer);
+    sse_encode_opt_box_autoadd_i_64(self.httpTimeout, serializer);
   }
 
   @protected

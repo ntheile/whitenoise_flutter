@@ -8,7 +8,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import '../frb_generated.dart';
 import 'error.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`
 
 /// Get Strike node information including balance
 Future<LightningNodeInfo> strikeGetInfo({
@@ -47,6 +47,47 @@ Future<List<LightningTransaction>> strikeListTransactions({
   required StrikeLightningConfig config,
   required ListTransactionsParams params,
 }) => RustLib.instance.api.crateApiLightningStrikeListTransactions(
+  config: config,
+  params: params,
+);
+
+/// Get NWC node information including balance
+Future<LightningNodeInfo> nwcGetInfo({
+  required NostrWalletConnectConfig config,
+}) => RustLib.instance.api.crateApiLightningNwcGetInfo(config: config);
+
+/// Create a Lightning invoice with NWC
+Future<LightningTransaction> nwcCreateInvoice({
+  required NostrWalletConnectConfig config,
+  required CreateInvoiceParams params,
+}) => RustLib.instance.api.crateApiLightningNwcCreateInvoice(
+  config: config,
+  params: params,
+);
+
+/// Pay a Lightning invoice with NWC
+Future<PayInvoiceResponse> nwcPayInvoice({
+  required NostrWalletConnectConfig config,
+  required PayInvoiceParams params,
+}) => RustLib.instance.api.crateApiLightningNwcPayInvoice(
+  config: config,
+  params: params,
+);
+
+/// Lookup a Lightning invoice by payment hash with NWC
+Future<LightningTransaction> nwcLookupInvoice({
+  required NostrWalletConnectConfig config,
+  required String paymentHash,
+}) => RustLib.instance.api.crateApiLightningNwcLookupInvoice(
+  config: config,
+  paymentHash: paymentHash,
+);
+
+/// List Lightning transactions with NWC
+Future<List<LightningTransaction>> nwcListTransactions({
+  required NostrWalletConnectConfig config,
+  required ListTransactionsParams params,
+}) => RustLib.instance.api.crateApiLightningNwcListTransactions(
   config: config,
   params: params,
 );
@@ -218,6 +259,45 @@ class ListTransactionsParams {
           from == other.from &&
           limit == other.limit &&
           search == other.search;
+}
+
+/// Configuration for Nostr Wallet Connect
+class NostrWalletConnectConfig {
+  /// NWC connection string (nostr+walletconnect://...)
+  final String nwcUri;
+
+  /// Optional SOCKS5 proxy URL for Tor support
+  final String? socks5Proxy;
+
+  /// Whether to accept invalid SSL certificates (for development)
+  final bool? acceptInvalidCerts;
+
+  /// HTTP timeout in seconds
+  final PlatformInt64? httpTimeout;
+
+  const NostrWalletConnectConfig({
+    required this.nwcUri,
+    this.socks5Proxy,
+    this.acceptInvalidCerts,
+    this.httpTimeout,
+  });
+
+  @override
+  int get hashCode =>
+      nwcUri.hashCode ^
+      socks5Proxy.hashCode ^
+      acceptInvalidCerts.hashCode ^
+      httpTimeout.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NostrWalletConnectConfig &&
+          runtimeType == other.runtimeType &&
+          nwcUri == other.nwcUri &&
+          socks5Proxy == other.socks5Proxy &&
+          acceptInvalidCerts == other.acceptInvalidCerts &&
+          httpTimeout == other.httpTimeout;
 }
 
 /// Parameters for paying a Lightning invoice
