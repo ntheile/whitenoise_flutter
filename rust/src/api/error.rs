@@ -28,6 +28,9 @@ pub enum ApiError {
     #[error("Nostr hex error: {message}")]
     NostrHex { message: String },
 
+    #[error("Lightning payment error: {0}")]
+    LightningError(String),
+
     #[error("Other error: {message}")]
     Other { message: String },
 }
@@ -108,6 +111,7 @@ impl ApiError {
             ApiError::NostrEvent { .. } => "NostrEvent".to_string(),
             ApiError::NostrParse { .. } => "NostrParse".to_string(),
             ApiError::NostrHex { .. } => "NostrHex".to_string(),
+            ApiError::LightningError(_) => "Lightning".to_string(),
             ApiError::Other { .. } => "Other".to_string(),
         }
     }
@@ -122,6 +126,7 @@ impl ApiError {
             ApiError::NostrEvent { message } => message.clone(),
             ApiError::NostrParse { message } => message.clone(),
             ApiError::NostrHex { message } => message.clone(),
+            ApiError::LightningError(message) => message.clone(),
             ApiError::Other { message } => message.clone(),
         }
     }

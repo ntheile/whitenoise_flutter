@@ -131,7 +131,18 @@
         "connectionString": "Connection String",
         "informationQuestion": "Which wallets can I connect?",
         "informationAnswer": "You can connect any wallet that supports Nostr Wallet Connect. See a full list",
-        "connectionStringCopied": "Connection string copied to clipboard"
+        "connectionStringCopied": "Connection string copied to clipboard",
+        "strike": {
+            "title": "Strike Lightning Payments",
+            "description": "Connect your Strike account to send and receive Lightning payments directly in White Noise.",
+            "apiKey": "Strike API Key",
+            "connect": "Connect",
+            "test": "Test Connection",
+            "connected": "Strike account connected successfully",
+            "connectionSuccess": "Strike connection successful",
+            "connectionFailed": "Failed to connect to Strike. Please check your API key.",
+            "apiKeyEmpty": "Please enter your Strike API key"
+        }
     },
     "donate": {
         "description": "As a not-for-profit, White Noise exists solely for your privacy and freedom, not for profit. Your support keeps us independent and uncompromised.",

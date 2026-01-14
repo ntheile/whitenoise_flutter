@@ -243,6 +243,11 @@ class _GeneralSettingsScreenState extends ConsumerState<GeneralSettingsScreen> {
                   onTap: () => context.push('${Routes.settings}/network'),
                 ),
                 SettingsListTile(
+                  assetPath: AssetsPaths.icFavorite,
+                  text: 'Wallet',
+                  onTap: () => context.push('${Routes.settings}/wallet'),
+                ),
+                SettingsListTile(
                   assetPath: AssetsPaths.icLogout,
                   text: 'settings.signOut'.tr(),
                   onTap: _handleLogout,
